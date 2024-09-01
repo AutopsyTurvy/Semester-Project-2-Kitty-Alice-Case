@@ -7,17 +7,55 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/login-styles.css">
-    <script src="js/api-test.js"></script>
+    <script src=""></script>
     
     <title>Login</title>
 
 </head>
 <body>
    
-    <h1>API TEST!</h1>
+   
 
-    <div id="image-container" class="image-container">
-        <!-- API dynamic rendering test -->
+   
+    <div class="login-form-outer-container">
+                <div class="login-form-inner-container">
+                    <form id="login-form">
+
+                        <div class="login-input-group">
+                            <label class="input-label" id="nameField" for="name">Name:</label>
+                            <input type="text" id="name" name="name" required pattern="^[a-zA-Z0-9_]+$" title="Username must only contain letters, numbers, and underscores. Example: Helga_Hufflepuff" placeholder="Your name:">
+                            <small id="name-tip">Tip: Please use underscores to separate words in your username.</small>
+                        </div>
+                        <div id="name-error"></div>
+                    
+                        <div class="input-group">
+                            <label class="input-label" for="email">Email:</label>
+                            <input type="email" id="email" name="email" pattern="^[\w\-.]+@(stud\.)?noroff\.no$" title="Only 'stud.noroff' or 'noroff.no' emails can register. Apologies for any inconvenience." required placeholder="Your email:">
+                        </div>
+                        <div id="email-error"></div>
+                    
+                        <div class="input-group">
+                            <label class="input-label" for="password">Password:</label>
+                            <input type="password" id="password" name="password" minlength="8" required placeholder="Your password:">
+                        </div>
+                        <div id="password-error"></div>
+                    
+                        <div class="input-group">
+                            <label class="input-label" for="banner">Banner:</label>
+                            <input type="url" id="banner" name="banner" placeholder="(Optional)">
+                        </div>
+                    
+                        <div class="input-group">
+                            <label class="input-label" for="avatar">Avatar:</label>
+                            <input type="url" id="avatar" name="avatar" placeholder="(Optional)">
+                        </div>
+                    
+                        <div class="login-buttons-positioning">
+                            <button class="login-button-styles register-button-on-register-page" id="registerButton" type="submit">Register</button>
+                            <a href="/profile/login/login.html" class="login-button-styles login-button-on-register-page" id="loginButton">Log In</a>
+                        </div>
+                    </form>
+                </div>
     </div>
 
 

@@ -1,6 +1,15 @@
 
 
 
+.login-form-outer-container {
+    text-align: center;
+    align-items: center;
+    
+}
+
+
+
+
 .image-container img {
     max-width: 100%;
     height: auto;
