@@ -21,9 +21,14 @@
                 <div class="login-form-inner-container">
                     <form id="login-form">
 
-                        <h1>Login</h1>
+                        <h1>Sign Up</h1>
 
-                        
+                        <div class="login-input-group">
+                            <label class="input-label" id="nameField" for="name">Name:</label>
+                            <input type="text" id="name" name="name" required pattern="^[a-zA-Z0-9_]+$" title="Username must only contain letters, numbers, and underscores. Example: Helga_Hufflepuff" placeholder="Your name:">
+                            <small id="name-tip">Tip: Please use underscores to separate words in your username.</small>
+                        </div>
+                        <div id="name-error"></div>
                     
                         <div class="input-group">
                             <label class="input-label" for="email">Email:</label>
@@ -37,16 +42,25 @@
                         </div>
                         <div id="password-error"></div>
                     
+                        <div class="input-group">
+                            <label class="input-label" for="banner">Banner:</label>
+                            <input type="url" id="banner" name="banner" placeholder="(Optional)">
+                        </div>
+                    
+                        <div class="input-group">
+                            <label class="input-label" for="avatar">Avatar:</label>
+                            <input type="url" id="avatar" name="avatar" placeholder="(Optional)">
+                        </div>
                     
                         <div class="login-buttons-positioning">
                             <button class="login-button-styles register-button-on-register-page" id="registerButton" type="submit">Register</button>
-                            <a href="/profile/login.html" class="login-button-styles login-button-on-register-page" id="loginButton">Log In</a>
+                            <a href="/pages/sign-up.html" class="login-button-styles login-button-on-register-page" id="loginButton">Log In</a>
                         </div>
                     </form>
                 </div>
     </div>
 
-   
+    <img src="images/login-background-image.jpg" alt="A pile of packaged boxes with stamps and labels">
 
 
 
