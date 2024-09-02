@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <script src=""></script>  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/login-styles.css">
-    <script src=""></script>
+    
     
     <title>Login</title>
 
@@ -18,33 +18,35 @@
 
    
     <div class="login-form-outer-container">
-                <div class="login-form-inner-container">
-                    <form id="login-form">
-
-                        <h1>Login</h1>
-
-                        
-                    
-                        <div class="input-group">
-                            <label class="input-label" for="email">Email:</label>
-                            <input type="email" id="email" name="email" pattern="^[\w\-.]+@(stud\.)?noroff\.no$" title="Only 'stud.noroff' or 'noroff.no' emails can register. Apologies for any inconvenience." required placeholder="Your email:">
-                        </div>
-                        <div id="email-error"></div>
-                    
-                        <div class="input-group">
-                            <label class="input-label" for="password">Password:</label>
-                            <input type="password" id="password" name="password" minlength="8" required placeholder="Your password:">
-                        </div>
-                        <div id="password-error"></div>
-                    
-                    
-                        <div class="login-buttons-positioning">
-                            <button class="login-button-styles register-button-on-register-page" id="registerButton" type="submit">Register</button>
-                            <a href="/profile/login.html" class="login-button-styles login-button-on-register-page" id="loginButton">Log In</a>
-                        </div>
-                    </form>
+        <div class="login-form-inner-container">
+            <form id="login-form">
+                <h1>Login</h1>
+    
+                <div class="input-group">
+                    <label class="input-label" for="email">Email:</label>
+                    <input type="email" id="email" name="email" pattern="^[\w\-.]+@(stud\.)?noroff\.no$" title="Only 'stud.noroff' or 'noroff.no' emails can register. Apologies for any inconvenience." required placeholder="Your email:">
                 </div>
+                <div id="email-error"></div>
+    
+                <div class="input-group">
+                    <label class="input-label" for="password">Password:</label>
+                    <input type="password" id="password" name="password" minlength="8" required placeholder="Your password:">
+                </div>
+                <div id="password-error"></div>
+    
+                <div class="login-button-positioning">
+                    <button class="login-button-styles" id="loginButton" type="submit">Login</button>
+
+
+                    <hr style="border: none; height: 2px; background-color: #E78C3B; width: 80%; margin: 20px auto;">
+                    <p>Don't have an account? Create one!</p>
+                    <button class="login-button-styles" id="registerButton" type="button" onclick="window.location.href='/pages/sign-up.html'">Register</button>
+                    <button class="login-button-styles" id="registerButton" type="button" onclick="window.location.href='/pages/home.html'">Makeshift Home Button</button>
+                </div>
+            </form>
+        </div>
     </div>
+    
 
    
 

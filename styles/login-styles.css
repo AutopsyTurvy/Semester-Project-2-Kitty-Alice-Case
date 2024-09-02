@@ -9,6 +9,19 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
 }
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); 
+    z-index: -1; 
+    
+}
+
 .login-form-outer-container {   
     align-items: center;
     background: rgba(255, 255, 255, 0.8);
@@ -18,6 +31,7 @@ body {
     margin: 50px auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border: 2px solid #E78C3B;
+    margin-top: 8em;
 }
 
 h1 {
@@ -25,6 +39,10 @@ h1 {
     font-weight: 800;
     margin-bottom: 2em;
     text-align: center;
+}
+
+p {
+    font-family: "Roboto", system-ui;
 }
 
 .login-input-group,
@@ -49,24 +67,35 @@ input[type="url"] {
     border-radius: 5px;
 }
 
-.login-buttons-positioning {
+
+.login-button-positioning {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column; 
+    width: 100%; 
+    margin: 0 auto; 
+    padding: 1em 0; 
 }
 
 .login-button-styles {
-    background-color: #E78C3B;
+    border: 1px solid #E78C3B;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
     color: black;
-    padding: 10px 20px;
-    border: none;
+    padding: 12px 20px;
     border-radius: 5px;
     text-decoration: none;
     text-align: center;
+    width: 60%;
+    margin-bottom: 15px;
+    font-weight: bold; 
+    font-size: 0.8em;
+    cursor: pointer;
 }
 
 .login-button-styles:hover {
     background-color: #D97217;
+    background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 }
 
 #registerButton {
