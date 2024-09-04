@@ -11,7 +11,6 @@
 }
 
 .listing-container {
-    border: 1px solid #E78C3B;
     padding: 15px;
     background-color: #f9f9f9;
     border-radius: 10px; 
@@ -27,9 +26,8 @@
     max-width: 200px; 
     margin-bottom: 10px; 
     border-radius: 50%;
-    border: 1px solid #E78C3B;
+    border: 2px solid #E78C3B;
     object-fit: cover;
-
     width: 150px;
     height: 150px;
     border-radius: 50%;
