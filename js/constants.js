@@ -8,8 +8,6 @@
 
 // export const API_BASE = '/api/v2';
 
-// 
-
 
 export const API_HOST_URL = 'https://v2.api.noroff.dev/';
 export const AUCTION_HOUSE = 'auction-house';
