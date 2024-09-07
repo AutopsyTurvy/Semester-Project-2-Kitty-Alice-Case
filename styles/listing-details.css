@@ -1,0 +1,122 @@
+
+
+
+
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;   
+}
+
+.listing-container {
+    justify-content: center;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    padding: 0;
+    width: 100%;
+    max-width: 900px;
+}
+
+.listing-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.listing-image {
+    width: 100%; 
+    max-width: 300px; 
+    height: auto; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 2px solid #E78C3B;
+}
+
+.listing-details {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.seller-info {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.listing-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.listing-price {
+    font-size: 18px;
+    color: #E78C3B;
+    margin-bottom: 10px;
+}
+
+.bids-info {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+
+.bid-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bid-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.bid-button {
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+    background-color: #D97217;
+    color: black;
+    font-size: 16px;
+    border: 1px solid #E78C3B;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+}
+
+.bid-button:hover {
+    background-color: #D97217;
+    background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+}
+
+
+@media (max-width: 768px) {
+    .listing-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .listing-image-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .listing-image {
+        max-width: 200px; 
+        height: 200px; 
+    }
+}

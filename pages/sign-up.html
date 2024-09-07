@@ -6,15 +6,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/login-styles.css">
-    <script src=""></script>
+    
+    
+    <link rel="stylesheet" href="/styles/login-styles.css">
+    <link rel="stylesheet" href="/styles/sign-up.css">
+
+    <script type="module" src=""></script>
     
     <title>Login</title>
 
 </head>
 <body>
-   
-   
 
    
     <div class="login-form-outer-container">
@@ -53,15 +55,13 @@
                         </div>
                     
                         <div class="login-buttons-positioning">
-                            <button class="login-button-styles register-button-on-register-page" id="registerButton" type="submit">Register</button>
-                            <a href="/pages/sign-up.html" class="login-button-styles login-button-on-register-page" id="loginButton">Log In</a>
+                            <button class="login-button-styles register-button-on-register-page" id="registerButton" type="submit">Sign Up</button>
+                            <p>Already have an account? Log In!</p>
+                            <button class="login-button-styles" id="registerButton" type="button" onclick="window.location.href='/index.html'">Log In</button>
                         </div>
                     </form>
                 </div>
     </div>
-
-    <img src="images/login-background-image.jpg" alt="A pile of packaged boxes with stamps and labels">
-
 
 
 </body>

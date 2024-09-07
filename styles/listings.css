@@ -1,6 +1,8 @@
 
 
-
+h2 {
+    margin-left: 1.5em;
+}
 
 
 #image-container {
@@ -12,7 +14,6 @@
 
 .listing-container {
     padding: 15px;
-    background-color: #f9f9f9;
     border-radius: 10px; 
     margin-bottom: 20px; 
     transition: transform 0.3s ease; 
@@ -22,18 +23,49 @@
 }
 
 .listing-image {
-
-    max-width: 200px; 
+    max-width: 250px; 
     margin-bottom: 10px; 
     border-radius: 50%;
     border: 2px solid #E78C3B;
     object-fit: cover;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+    width: 200px;
+    height: 200px;
 }
 
+.image-placeholder {
+    width: 200px;
+    height: 200px; 
+    background-color: #ccc; 
+    border-radius: 50%; 
+    border: 2px solid #E78C3B; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: white;
+}
 
+.image-placeholder::before {
+    content: "No Image Available";
+    color: #fff;
+    font-size: 1em;
+    text-align: center;
+}
+
+.listing-button {
+    padding: 10px 20px;
+    background-color: #E78C3B;
+    border: 1px solid #E78C3B;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.listing-button:hover {
+    background-color: #D97217;
+}
 
 
 @media (max-width: 1200px) {

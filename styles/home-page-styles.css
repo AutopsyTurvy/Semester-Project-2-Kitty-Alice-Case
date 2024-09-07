@@ -133,3 +133,11 @@ body {
     background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
     cursor: pointer;
 }
+
+.button-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center; 
+    gap: 10px; 
+}
+
