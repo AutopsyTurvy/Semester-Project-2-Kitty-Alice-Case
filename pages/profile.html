@@ -7,19 +7,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    
     <link rel="stylesheet" href="/styles/home-page-styles.css">
-    
-    
     <link rel="stylesheet" href="/styles/listings.css">
-    <script type="module" src="/js/all-listings.js"></script>
+
+    <script type="module" src="/js/login-and-register.js"></script>
+    <script type="module" src="/js/profile.js"></script>
+
     
-    <title>Home Page</title>
+    
+    <title>Profile</title>
 </head>
 <body>
 
-
     <header class="large-header-container">
-
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
@@ -32,10 +34,8 @@
             <ul class="nav-buttons">
                 <li><a href="/pages/home.html">Home</a></li>
                 <li><a href="#">Listings</a></li>
-                <li><a href="profile.html">Profile</a></li>
-
-                <li><a href="#" id="logoutLink">Log out</a></li>
-
+                <li><a href="#">Profile</a></li>
+                <li><a href="index.html">Log out</a></li>
                 <li><a href="#"><i class="fa-solid fa-cart-shopping" style="color: #000000;"></i></a></li>
             </ul>
         </nav>
@@ -43,22 +43,33 @@
         <div class="header-title">
             <h1>The Best Spot for Buying and Selling!</h1>
         </div>
-    
     </header>
 
 
-    <h2>Browse Our Auctions:</h2>
-
-
-    <div id="image-container"></div>
-    <div id="button-container">
-      <button id="show-more" style="display:none;">Show More</button>
-      <button id="show-less" style="display:none;">Show Less</button>
-    </div>  
-
+    <div class="profile-container">
+        <h1>Your Profile</h1>
+        
+        <div class="profile-section">
+            <label>Name:</label>
+            <span id="profile-name"></span>
+        </div>
+    
+        <div class="profile-section">
+            <label>Email:</label>
+            <span id="profile-email"></span>
+        </div>
+    
+        <div class="profile-section">
+            <label>Avatar:</label>
+            <img id="profile-avatar" src="" alt="Avatar" style="max-width: 100px; max-height: 100px;">
+        </div>
+    
+        <div class="profile-section">
+            <label>Banner:</label>
+            <img id="profile-banner" src="" alt="Banner" style="max-width: 300px; max-height: 100px;">
+        </div>
+    </div>
+    
 
 </body>
 </html>
-
-
-

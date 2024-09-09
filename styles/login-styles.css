@@ -38,6 +38,7 @@ h1 {
 
 p {
     font-family: "Roboto", system-ui;
+    text-align: center; 
 }
 
 .login-input-group,
@@ -62,15 +63,14 @@ input[type="url"] {
     border-radius: 5px;
 }
 
-
 .login-button-positioning {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    flex-direction: column; 
-    width: 100%; 
-    margin: 0 auto; 
-    padding: 1em 0; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+    margin: 0 auto;      
+    padding: 1em 0;
 }
 
 .login-button-styles {
@@ -93,6 +93,41 @@ input[type="url"] {
     background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 }
 
-#registerButton {
+#registerButton, #loginButton, #homeButton {
     cursor: pointer;
+}
+
+#registerButton {
+    border: 1px solid #E78C3B;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+    color: black;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    width: 60%; 
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+#loginButton {
+    border: 1px solid #E78C3B;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+    color: black;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    width: 60%;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+#registerButton:hover, #loginButton:hover {
+    background-color: #D97217;
+    background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 }
