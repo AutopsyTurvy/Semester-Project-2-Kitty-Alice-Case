@@ -3,31 +3,108 @@
 
 
 
-
-
-
-
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: #f0f0f0;
+    padding: 0;
+    
 }
+
+.profile-banner-container {
+    width: 100%;
+    max-height: 10em; 
+    overflow: hidden;
+
+}
+
+.profile-banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 8px;
+}
+
 .profile-container {
-    background-color: white;
+    max-width: 900px;
+    margin: 50px auto;
+    padding-bottom: 2em;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    border: 2px solid #E78C3B; 
 }
-.profile-header {
-    text-align: center;
+
+.profile-content {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 50px; 
+}
+
+.profile-avatar-container {
+    flex: 0 0 200px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 2px solid #E78C3B; 
+    box-shadow: 2px solid #E78C3B; 
+}
+
+.profile-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.profile-section {
     margin-bottom: 20px;
 }
-.profile-item {
-    margin-bottom: 10px;
+
+.profile-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+    color: #555;
+    margin-right: 10px;
 }
-.profile-item strong {
+
+.profile-info {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.2em;
+    color: #000;
+}
+
+#profile-credits {
     font-weight: bold;
+    font-size: 1.5em; 
+    color: #E78C3B; 
+}
+
+.credits-display {
+    padding: 5px 10px;
+    background-color: #f4f4f4; 
+    border-radius: 5px; 
+    border: 2px solid #E78C3B; 
+}
+
+.credits-profile-holder {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+    color: #555;
+    margin-right: 10px;
+}
+
+.profile-section {
+    margin-bottom: 20px; 
 }

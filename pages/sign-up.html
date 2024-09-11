@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/styles/sign-up.css">
 
 
-    <script type="module" src="/js/login-and-register.js"></script>
+    <script defer type="module" src="/js/login-and-register.js"></script>
     
     <title>Sign Up</title>
 
@@ -22,7 +22,8 @@
   <!-- sign-up.html --for those that wish to create an account-->
 <div class="login-form-outer-container">
     <div class="login-form-inner-container">
-        <form id="registerForm">
+
+        <form id="registerForm"> 
             <h1>Sign Up</h1>
 
             <div class="login-input-group">
@@ -51,13 +52,16 @@
 
             <div class="input-group">
                 <label class="input-label" for="banner">Banner:</label>
-                <input type="url" id="banner" name="banner" placeholder="(Optional)">
+                <input type="url" id="banner" name="banner" placeholder="Enter a URL to be used as your banner: (Optional)">
             </div>
+            
 
             <div class="input-group">
                 <label class="input-label" for="avatar">Avatar:</label>
-                <input type="url" id="avatar" name="avatar" placeholder="(Optional)">
+                <input type="url" id="avatar" name="avatar" placeholder="Enter a URL to be used as your avatar: (Optional)">
             </div>
+            
+
 
             <div class="login-button-positioning">
                 <button id="registerButton" type="submit">Sign Up</button>

@@ -11,6 +11,7 @@
     
     <link rel="stylesheet" href="/styles/home-page-styles.css">
     <link rel="stylesheet" href="/styles/listings.css">
+    <link rel="stylesheet" href="/styles/profile.css">
 
     <script type="module" src="/js/login-and-register.js"></script>
     <script type="module" src="/js/profile.js"></script>
@@ -46,30 +47,47 @@
     </header>
 
 
+
+
+    
+    
+
+
     <div class="profile-container">
+
+
+        <div id="profile-banner-container" class="profile-banner-container profile-banner">
+            <img id="bannerImage" src="/images/stacked-boxes.jpg" alt="Default Profile Banner">
+        </div>
+
         <h1>Your Profile</h1>
         
-        <div class="profile-section">
-            <label>Name:</label>
-            <span id="profile-name"></span>
-        </div>
+        <div class="profile-content">
     
-        <div class="profile-section">
-            <label>Email:</label>
-            <span id="profile-email"></span>
-        </div>
+            <div class="profile-avatar-container">
+                <img id="profile-avatar" class="profile-avatar" src="" alt="Profile Picture">
+            </div>
     
-        <div class="profile-section">
-            <label>Avatar:</label>
-            <img id="profile-avatar" src="" alt="Avatar" style="max-width: 100px; max-height: 100px;">
-        </div>
+            <div class="profile-details">
+                <div class="profile-section">
+                    <label class="profile-label">Name:</label>
+                    <span id="profile-name" class="profile-info"></span>
+                </div>
     
-        <div class="profile-section">
-            <label>Banner:</label>
-            <img id="profile-banner" src="" alt="Banner" style="max-width: 300px; max-height: 100px;">
+                
+                <div class="profile-section">
+                    <label class="profile-label">Credits:</label>
+                    <span id="profile-credits" class="credits-display"></span>
+                </div>
+            
+                <div class="profile-section">
+                    <label class="profile-label">Email:</label>
+                    <span id="profile-email" class="profile-info"></span>
+                </div>
+            </div>
         </div>
     </div>
-    
+
 
 </body>
 </html>

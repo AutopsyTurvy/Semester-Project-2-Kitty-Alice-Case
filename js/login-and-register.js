@@ -1,7 +1,7 @@
 
 
 
-
+// login-and-register.js
 
 export const API_BASE = "https://v2.api.noroff.dev";
 export const API_AUTH = "/auth";
@@ -13,6 +13,7 @@ export const API_KEY_URL = "/create-api-key";
 export function save(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
+
 
 export function load(key) {
     return JSON.parse(localStorage.getItem(key));
@@ -31,9 +32,13 @@ export async function register(name, email, password) {
     });
 
     if (response.ok) {
-        return await response.json();
+        const jsonResponse = await response.json();
+        console.log("Registration successful:", jsonResponse);
+        return jsonResponse;
     }
 
+    const errorText = await response.text();
+    console.error("Registration failed with response:", errorText);
     throw new Error("Failed to register account");
 }
 
@@ -50,41 +55,64 @@ export async function login(email, password) {
     });
 
     if (response.ok) {
-        const { accessToken, ...profile } = (await response.json()).data;
+        const responseData = await response.json();
+        const { accessToken, ...profile } = responseData.data;
+        console.log("Login successful, received profile:", profile);
+        
+        
         save("Token", accessToken);
         save("Profile", profile);
+        
         return profile;
     }
 
+    const errorText = await response.text();
+    console.error("Login failed with response:", errorText);
     throw new Error("Failed to login");
 }
 
 
 export async function onAuth(event) {
-    event.preventDefault(); 
+    event.preventDefault();
     
     const form = event.target;
     
-    
+   
     const name = form.elements['registerName']?.value;
     const email = form.elements['registerEmail']?.value;
     const password = form.elements['registerPassword']?.value;
+    const avatar = form.elements['avatar']?.value;  
+    const banner = form.elements['banner']?.value;
+
+    console.log("Form data:", { name, email, avatar, banner });
 
     try {
-       
+        
         await register(name, email, password);
+        console.log("User successfully registered.");
+
         
-       
         const profile = await login(email, password);
-
-       
-        console.log("Registration and login successful, profile:", profile);
+        console.log("User logged in, updating profile with avatar, banner, and credits.");
 
         
-        window.location.href = "/pages/profile.html"; 
+        const updatedProfile = {
+            ...profile,
+            avatar: { url: avatar || 'https://default-avatar-url.com/avatar.jpg' },
+            banner: { url: banner || '/images/stacked-boxes.jpg' },
+            credits: 1000  
+        };
+
+        console.log("Updated profile with credits:", updatedProfile);
+
+        
+        save("Profile", updatedProfile);
+
+        
+        console.log("Redirecting to profile page.");
+        window.location.href = "/pages/profile.html";
     } catch (error) {
         console.error("Error during registration or login:", error);
-        
         document.getElementById("email-error").textContent = error.message;
     }
 }
@@ -94,33 +122,73 @@ export function setAuthListeners() {
     const registerForm = document.getElementById("registerForm");
 
     if (registerForm) {
-        registerForm.addEventListener("submit", onAuth); 
+        registerForm.addEventListener("submit", onAuth);
+        console.log("Auth listeners set.");
+    } else {
+        console.warn("Registration form was not found.");
+    }
+}
+
+
+export async function onLogin(event) {
+    event.preventDefault(); 
+
+    const form = event.target;
+    const email = form.elements['loginEmail']?.value;
+    const password = form.elements['loginPassword']?.value;
+
+    try {
+        const profile = await login(email, password);
+        console.log("User logged in successfully:", profile);
+
+        
+        window.location.href = "/pages/home.html";
+    } catch (error) {
+        console.error("Login failed:", error);
+        document.getElementById("email-error").textContent = error.message;
+    }
+}
+
+
+export function setLoginListeners() {
+    const loginForm = document.getElementById("loginForm");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", onLogin); 
+        console.log("Login listeners set.");
+    } else {
+        console.warn("Login form was not found.");
     }
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
     setAuthListeners();
+    setLoginListeners();
 });
 
 
 export async function getApiKey() {
     try {
+        console.log("Attempting to fetch API key.");
         const response = await fetch(API_BASE + API_AUTH + API_KEY_URL, {
-            method: "POST", 
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${load("Token")}`, 
+                "Authorization": `Bearer ${load("Token")}`,
             },
-            body: JSON.stringify({ name: "test key" }), 
+            body: JSON.stringify({ name: "test key" }),
         });
 
         if (response.ok) {
             const apiKeyData = await response.json();
-            save("ApiKey", apiKeyData.data.key); 
+            console.log("API key fetched successfully:", apiKeyData);
+            save("ApiKey", apiKeyData.data.key);
             return apiKeyData;
         }
 
+        const errorText = await response.text();
+        console.error("Failed to fetch API key:", errorText);
         throw new Error("Failed to fetch API Key");
     } catch (error) {
         console.error("Error fetching API Key:", error);
@@ -129,13 +197,14 @@ export async function getApiKey() {
 
 
 export async function fetchWithApiKey(url) {
-    const accessToken = load("Token"); 
-    const apiKey = load("ApiKey"); 
+    const accessToken = load("Token");
+    const apiKey = load("ApiKey");
 
     if (!accessToken || !apiKey) {
         throw new Error("Missing Token or API Key");
     }
 
+    console.log("Fetching data from:", url);
     const options = {
         method: "GET",
         headers: {
@@ -148,8 +217,12 @@ export async function fetchWithApiKey(url) {
     const response = await fetch(url, options);
 
     if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Failed to fetch data:", errorText);
         throw new Error("Failed to fetch data");
     }
 
-    return await response.json();
+    const data = await response.json();
+    console.log("Data fetched successfully:", data);
+    return data;
 }
