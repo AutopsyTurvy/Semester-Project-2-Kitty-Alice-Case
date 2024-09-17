@@ -6,75 +6,122 @@
 
 
 const urlParams = new URLSearchParams(window.location.search);
-const listingId = urlParams.get('id'); 
+const listingId = urlParams.get('id');
 
 if (listingId) {
-    
     const url = `https://v2.api.noroff.dev/auction/listings/${listingId}?_seller=true&_bids=true`;
 
     fetch(url)
         .then(response => response.json())
         .then(result => {
             const listing = result.data;
-            console.log(result); 
-            document.querySelector('.listing-title').textContent = listing.title;
-           
-            if (listing.media.length > 0) {
-                document.querySelector('.listing-image').src = listing.media[0].url;
-                document.querySelector('.listing-image').alt = listing.media[0].alt || listing.title;
-            } else {
-                document.querySelector('.listing-image').src = '/images/placeholder.jpg';
-                document.querySelector('.listing-image').alt = 'No image available';
+
+            
+            const titleElement = document.querySelector('.listing-title');
+            if (titleElement) {
+                titleElement.textContent = listing.title;
             }
 
-            document.querySelector('.listing-description').textContent = listing.description || 'No description available.';
+            
+            const imgElement = document.querySelector('.listing-image');
+            const imageContainer = document.querySelector('.listing-image-container');
 
-            if (listing.tags.length > 0) {
-                document.querySelector('.listing-tags').textContent = listing.tags.join(', ');
-            } else {
-                document.querySelector('.listing-tags').textContent = 'No tags available.';
+            if (imageContainer) {
+                const existingPlaceholder = imageContainer.querySelector('.image-placeholder');
+                if (existingPlaceholder) {
+                    existingPlaceholder.remove();
+                }
+
+                if (listing.media && listing.media.length > 0) {
+                    if (imgElement) {
+                        imgElement.src = listing.media[0].url;
+                        imgElement.alt = listing.media[0].alt || listing.title;
+                        imgElement.style.display = 'block';
+                    }
+                } else {
+                    if (imgElement) {
+                        imgElement.style.display = 'none';
+                    }
+
+                    const placeholderDiv = document.createElement('div');
+                    placeholderDiv.classList.add('image-placeholder');
+                    imageContainer.appendChild(placeholderDiv);
+                }
             }
 
-           
-
-
-
-            document.querySelector('.listing-created').textContent = new Date(listing.created).toLocaleString();
-
             
-            document.querySelector('.listing-updated').textContent = new Date(listing.updated).toLocaleString();
-
-            
-            document.querySelector('.listing-ends-at').textContent = new Date(listing.endsAt).toLocaleString();
-
-            
-            document.querySelector('.listing-bid-count').textContent = listing._count.bids || 0;
-
-            
-            
-
-
-           
-            if (listing.seller) {
-                const sellerInfo = `Seller: ${listing.seller.name}`;
-                document.querySelector('.seller-info').textContent = sellerInfo;
+            const descriptionElement = document.querySelector('.listing-description');
+            if (descriptionElement) {
+                descriptionElement.textContent = listing.description || 'No description available.';
             }
 
-            if (listing.bids && listing.bids.length > 0) {
-                const bidsInfo = listing.bids.map(bid => {
-                    return `Bid by ${bid.bidder.name}: ${bid.amount} at ${new Date(bid.created).toLocaleString()}`;
-                }).join('\n');
-                document.querySelector('.bids-info').textContent = bidsInfo;
-            } else {
-                document.querySelector('.bids-info').textContent = 'No bids available.';
+            
+            const endsAtElement = document.querySelector('.listing-ends-at');
+            if (endsAtElement) {
+                const endsAt = new Date(listing.endsAt).getTime();
+
+                
+                const countdownTimer = setInterval(() => {
+                    const now = new Date().getTime();
+                    const timeRemaining = endsAt - now;
+
+                    const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                    
+                    if (timeRemaining > 0) {
+                        endsAtElement.textContent = `Time Remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                    } else {
+                        
+                        clearInterval(countdownTimer);
+                        endsAtElement.textContent = "Auction has ended!";
+                    }
+                }, 1000); 
             }
+
+         
+            const bidsElement = document.querySelector('.bids-info');
+            const bidsContainer = document.querySelector('.bids-info-container');
+            const toggleBidHistoryButton = document.querySelector('.toggle-bid-history-button');
+
+            if (bidsElement && bidsContainer && toggleBidHistoryButton) {
+                
+                if (listing.bids && listing.bids.length > 0) {
+                    const bidsInfo = listing.bids.map(bid => {
+                        return `Bid by ${bid.bidder.name}: ${bid.amount} at ${new Date(bid.created).toLocaleString()}`;
+                    }).join('\n');
+                    bidsElement.textContent = bidsInfo;
+                } else {
+                    bidsElement.textContent = 'No bids available.';
+                }
+
+                
+                toggleBidHistoryButton.addEventListener('click', () => {
+                    if (bidsContainer.style.display === 'none') {
+                        bidsContainer.style.display = 'block';
+                        toggleBidHistoryButton.textContent = 'Hide Bidding History';
+                    } else {
+                        bidsContainer.style.display = 'none';
+                        toggleBidHistoryButton.textContent = 'Show Bidding History';
+                    }
+                });
+            }
+
         })
         .catch(error => {
             console.error('There was an error fetching the listing details:', error);
         });
 } else {
-    document.querySelector('.listing-title').textContent = 'Listing was not found';
-    document.querySelector('.listing-description').textContent = 'Oops! An Invalid listing ID.';
+    const titleElement = document.querySelector('.listing-title');
+    const descriptionElement = document.querySelector('.listing-description');
+
+    if (titleElement) {
+        titleElement.textContent = 'Listing was not found';
+    }
+
+    if (descriptionElement) {
+        descriptionElement.textContent = 'Oops! An invalid listing ID.';
+    }
 }
-
-

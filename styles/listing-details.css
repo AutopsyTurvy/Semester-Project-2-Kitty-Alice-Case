@@ -7,7 +7,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;   
+    min-height: 100vh;  
+    padding: 2em; 
 }
 
 .listing-container {
@@ -15,9 +16,11 @@
     display: flex;
     background-color: white;
     border-radius: 10px;
-    padding: 0;
+    padding: 3em;
     width: 100%;
     max-width: 900px;
+    border: 2px solid #E78C3B;
+    font-family: "Roboto", system-ui;
 }
 
 .listing-image-container {
@@ -47,11 +50,13 @@
 .listing-title {
     font-size: 24px;
     margin-bottom: 10px;
+    font-family: "DM Serif Text", system-ui;
+    text-decoration: underline;
 }
 
 .seller-info {
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 2em;
 }
 
 .listing-description {
@@ -102,6 +107,56 @@
     background-color: #D97217;
     background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 }
+
+
+
+
+
+.bidding-history-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.toggle-bid-history-button {
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+    background-color: #D97217;
+    color: black;
+    font-size: 16px;
+    border: 1px solid #E78C3B;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.toggle-bid-history-button:hover {
+    background-color: #D97217;
+    background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+}
+
+
+
+.bids-info-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.bids-info {
+    white-space: pre-wrap;
+}
+
+
+
+.listing-ends-at {
+    padding-bottom: 1em;
+}
+
+
+
+
 
 
 @media (max-width: 768px) {

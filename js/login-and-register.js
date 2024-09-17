@@ -1,6 +1,8 @@
 
 
 
+
+
 // login-and-register.js
 
 export const API_BASE = "https://v2.api.noroff.dev";
@@ -14,16 +16,14 @@ export function save(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
 
-
 export function load(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
-
 export async function register(name, email, password) {
     console.log("Attempting to register with:", { name, email, password });
     
-    const response = await fetch(API_BASE + API_AUTH + API_REGISTER, {
+    const response = await fetch(`${API_BASE}${API_AUTH}${API_REGISTER}`, {
         headers: {
             "Content-Type": "application/json",
         },
@@ -42,11 +42,10 @@ export async function register(name, email, password) {
     throw new Error("Failed to register account");
 }
 
-
 export async function login(email, password) {
     console.log("Attempting to log in with:", { email, password });
     
-    const response = await fetch(API_BASE + API_AUTH + API_LOGIN, {
+    const response = await fetch(`${API_BASE}${API_AUTH}${API_LOGIN}`, {
         headers: {
             "Content-Type": "application/json",
         },
@@ -56,12 +55,22 @@ export async function login(email, password) {
 
     if (response.ok) {
         const responseData = await response.json();
-        const { accessToken, ...profile } = responseData.data;
-        console.log("Login successful, received profile:", profile);
+        const { accessToken, name, email, avatar, banner, venueManager } = responseData.data;
         
+        console.log("Login successful, received profile:", responseData.data);
         
         save("Token", accessToken);
+
+        const profile = {
+            name,
+            email,
+            avatar: avatar || { url: 'https://default-avatar-url.com/avatar.jpg', alt: 'Default Avatar' },
+            banner: banner || { url: '/images/stacked-boxes.jpg', alt: 'Default Banner' },
+            venueManager: venueManager || false,
+        };
         save("Profile", profile);
+        
+        console.log("User profile saved:", profile);
         
         return profile;
     }
@@ -71,12 +80,10 @@ export async function login(email, password) {
     throw new Error("Failed to login");
 }
 
-
 export async function onAuth(event) {
     event.preventDefault();
     
     const form = event.target;
-    
    
     const name = form.elements['registerName']?.value;
     const email = form.elements['registerEmail']?.value;
@@ -87,15 +94,12 @@ export async function onAuth(event) {
     console.log("Form data:", { name, email, avatar, banner });
 
     try {
-        
         await register(name, email, password);
         console.log("User successfully registered.");
-
         
         const profile = await login(email, password);
         console.log("User logged in, updating profile with avatar, banner, and credits.");
 
-        
         const updatedProfile = {
             ...profile,
             avatar: { url: avatar || 'https://default-avatar-url.com/avatar.jpg' },
@@ -105,10 +109,16 @@ export async function onAuth(event) {
 
         console.log("Updated profile with credits:", updatedProfile);
 
-        
         save("Profile", updatedProfile);
-
         
+        
+        if (!load("ApiKey")) {
+            console.log("No API key found, attempting to fetch API key...");
+            await getApiKey(); 
+        } else {
+            console.log("API key already exists.");
+        }
+
         console.log("Redirecting to profile page.");
         window.location.href = "/pages/profile.html";
     } catch (error) {
@@ -116,7 +126,6 @@ export async function onAuth(event) {
         document.getElementById("email-error").textContent = error.message;
     }
 }
-
 
 export function setAuthListeners() {
     const registerForm = document.getElementById("registerForm");
@@ -128,7 +137,6 @@ export function setAuthListeners() {
         console.warn("Registration form was not found.");
     }
 }
-
 
 export async function onLogin(event) {
     event.preventDefault(); 
@@ -142,13 +150,19 @@ export async function onLogin(event) {
         console.log("User logged in successfully:", profile);
 
         
+        if (!load("ApiKey")) {
+            console.log("No API key found, attempting to fetch API key...");
+            await getApiKey();  
+        } else {
+            console.log("API key already exists.");
+        }
+
         window.location.href = "/pages/home.html";
     } catch (error) {
         console.error("Login failed:", error);
         document.getElementById("email-error").textContent = error.message;
     }
 }
-
 
 export function setLoginListeners() {
     const loginForm = document.getElementById("loginForm");
@@ -161,17 +175,39 @@ export function setLoginListeners() {
     }
 }
 
+// This is the good old "Logout function"
+export function logout() {
+    console.log("Logging out...");
+
+    localStorage.clear();
+
+    window.location.href = "/index.html";
+}
+
+export function setLogoutListener() {
+    const logoutButton = document.getElementById("logoutButton");
+
+    if (logoutButton) {
+        logoutButton.addEventListener("click", (event) => {
+            console.log("Logout button clicked");
+            logout();
+        });
+        console.log("Logout listener set.");
+    } else {
+        console.warn("Logout button was not found.");
+    }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     setAuthListeners();
     setLoginListeners();
+    setLogoutListener();  
 });
-
 
 export async function getApiKey() {
     try {
         console.log("Attempting to fetch API key.");
-        const response = await fetch(API_BASE + API_AUTH + API_KEY_URL, {
+        const response = await fetch(`${API_BASE}${API_AUTH}${API_KEY_URL}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -194,7 +230,6 @@ export async function getApiKey() {
         console.error("Error fetching API Key:", error);
     }
 }
-
 
 export async function fetchWithApiKey(url) {
     const accessToken = load("Token");

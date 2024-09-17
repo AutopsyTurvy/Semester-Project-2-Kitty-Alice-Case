@@ -10,11 +10,16 @@
     
     
     <link rel="stylesheet" href="/styles/home-page-styles.css">
-    <link rel="stylesheet" href="/styles/listings.css">
     <link rel="stylesheet" href="/styles/profile.css">
+    <link rel="stylesheet" href="/styles/create-listing.css">
+    <link rel="stylesheet" href="/styles/user-listings.css">
 
+    <script type="module" src="/js/nav-buttons.js"></script>
     <script type="module" src="/js/login-and-register.js"></script>
     <script type="module" src="/js/profile.js"></script>
+    <script type="module" src="/js/credit-count.js"></script>
+    <script type="module" src="/js/create-listing.js"></script>
+    <script type="module" src="/js/user-listings.js"></script>
 
     
     
@@ -33,24 +38,28 @@
             </div>
     
             <ul class="nav-buttons">
-                <li><a href="/pages/home.html">Home</a></li>
-                <li><a href="#">Listings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="index.html">Log out</a></li>
-                <li><a href="#"><i class="fa-solid fa-cart-shopping" style="color: #000000;"></i></a></li>
+
+                <button id="linkToHomeButton">Home</button>
+                
+
+                <button id="linkToProfileButton">Profile</button>
+                
+
+                <button id="logoutButton">Logout</button>
+                
+
+                <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
+
             </ul>
         </nav>
     
         <div class="header-title">
-            <h1>The Best Spot for Buying and Selling!</h1>
+            <h1>Auction House</h1>
+            <h2>The Best Spot for Buying and Selling!</h2>
         </div>
     </header>
 
 
-
-
-    
-    
 
 
     <div class="profile-container">
@@ -78,6 +87,7 @@
                 <div class="profile-section">
                     <label class="profile-label">Credits:</label>
                     <span id="profile-credits" class="credits-display"></span>
+                    
                 </div>
             
                 <div class="profile-section">
@@ -87,6 +97,80 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <h3 class="your-listings-header">Your Listings:</h3>
+
+
+
+
+
+
+
+    <div id="user-listings-container">
+        <div class="user-listing-container">
+            <div class="user-listing-image-container">
+                <img class="user-listing-image" src="" alt="Listing image">
+            </div>
+            <div class="user-listing-title-container">
+                <h3 class="user-listing-title"></h3>
+            </div>
+            <div class="user-listing-button-container">
+                <button class="user-listing-button"></button>
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+
+
+
+
+
+    <section class="create-listing-form-container">
+        <form id="createListingForm" class="create-listing-form">
+            <h2 class="create-listing-title">Create New Listing</h2>
+    
+            <div class="create-listing-input-group">
+                <label for="listingTitle" class="create-listing-input-label">Title:</label>
+                <input type="text" id="listingTitle" class="create-listing-input" placeholder="Enter title" required />
+            </div>
+    
+            <div class="create-listing-input-group">
+                <label for="listingEndsAt" class="create-listing-input-label">End Date & Time:</label>
+                <input type="datetime-local" id="listingEndsAt" class="create-listing-input" required />
+            </div>
+    
+            <div class="create-listing-input-group">
+                <label for="listingDescription" class="create-listing-input-label">Description:</label>
+                <textarea id="listingDescription" class="create-listing-textarea" placeholder="Enter description"></textarea>
+            </div>
+    
+            <div class="create-listing-input-group">
+                <label for="listingTags" class="create-listing-input-label">Your Tags (comma-separated):</label>
+                <input type="text" id="listingTags" class="create-listing-input" placeholder="tag1, tag2, tag3" />
+            </div>
+    
+            <div class="create-listing-input-group">
+                <label for="listingMedia" class="create-listing-input-label">Media URL:</label>
+                <input type="text" id="listingMedia" class="create-listing-input" placeholder="https://example.com/image.jpg" />
+            </div>
+    
+            <div class="create-listing-input-group">
+                <label for="listingMediaAlt" class="create-listing-input-label">Media Alt Text:</label>
+                <input type="text" id="listingMediaAlt" class="create-listing-input" placeholder="Description of the image" />
+            </div>
+    
+            <div class="create-listing-button-container">
+                <button type="button" id="createListingButton" class="create-listing-button">Create Listing</button>
+            </div>
+        </form>
+    </section>
+    
 
 
 </body>

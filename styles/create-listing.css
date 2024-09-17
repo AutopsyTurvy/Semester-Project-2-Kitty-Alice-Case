@@ -1,0 +1,95 @@
+
+
+
+.create-listing-form-container {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 60%;
+    min-width: 300px;
+    width: 100%;
+    margin: 50px auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #E78C3B;
+    margin-top: 2em;
+}
+
+.create-listing-title {
+    font-family: "DM Serif Text", system-ui;
+    font-weight: 800;
+    margin-bottom: 2em;
+    text-align: center;
+}
+
+.create-listing-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.create-listing-input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.create-listing-input, 
+.create-listing-textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #E78C3B;
+    border-radius: 5px;
+    font-family: "Roboto", system-ui;
+}
+
+.create-listing-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.create-listing-button-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.create-listing-button {
+    border: 1px solid #E78C3B;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+    color: black;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    width: 60%;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.create-listing-button:hover {
+    background-color: #D97217;
+    background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .create-listing-form-container {
+        padding: 10px;
+    }
+
+    .create-listing-input {
+        font-size: 0.9em;
+    }
+
+    .create-listing-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}

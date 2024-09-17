@@ -12,9 +12,13 @@
     <link rel="stylesheet" href="/styles/listing-details.css">
 
 
-    <script src="/js/home.js"></script>
-    <script src="/js/all-listings.js"></script>
-    <script src="/js/listing-details.js"></script>
+    
+    <script type="module" src="/js/nav-buttons.js"></script>
+    <script type="module" src="/js/login-and-register.js"></script>
+    <script type="module" src="/js/listing-details.js"></script>
+    <script type="module" src="/js/place-bid.js"></script>
+    <script type="module" src="/js/credit-count.js"></script>
+
     
 
     
@@ -24,7 +28,6 @@
 
 
     <header class="large-header-container">
-
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
@@ -35,46 +38,67 @@
             </div>
     
             <ul class="nav-buttons">
-                <li><a href="/pages/home.html">Home</a></li>
-                <li><a href="#">Listings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Logout</a></li>
-                <li><a href="#"><i class="fa-solid fa-cart-shopping" style="color: #000000;"></i></a></li>
+
+                <button id="linkToHomeButton">Home</button>
+                
+
+                <button id="linkToProfileButton">Profile</button>
+                
+
+                <button id="logoutButton">Logout</button>
+                
+
+                <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
+
             </ul>
         </nav>
     
         <div class="header-title">
-            <h1>The Best Spot for Buying and Selling!</h1>
+            <h1>Auction House</h1>
+            <h2>The Best Spot for Buying and Selling!</h2>
         </div>
-    
     </header>
 
 
-    <div class="profile-content">
-        
-        <div class="profile-avatar-container">
-            <img id="profile-avatar" class="profile-avatar" src="" alt="Avatar">
-        </div>
+    <div class="page-wrapper">
+        <div class="listing-container">
+            <div class="listing-image-container">
+                <img class="listing-image" alt="Listing Image">
+            </div>
+    
+            <div class="listing-details">
+                <h2 class="listing-title"></h2>
+                
+                <div class="seller-info"></div>
+                
+                
+                <div class="listing-section-label"><strong>Description:</strong></div>
+                <div class="listing-description"></div>
+                
+               
+                
+                <div class="listing-price"></div>
+                <div class="high-bidder"></div>
+                <div class="high-bid-amount"></div>
+                
+                <div class="bidding-history-section">
+                    <button class="toggle-bid-history-button">Show Bidding History</button>
+                    <div class="bids-info-container" style="display: none;">
+                        <div class="bids-info"></div>
+                    </div>
+                </div>
 
-       
-        <div class="profile-details">
-            <div class="profile-section">
-                <label class="profile-label">Name:</label>
-                <span id="profile-name" class="profile-info"></span>
-            </div>
-        
-            <div class="profile-section">
-                <label class="profile-label">Email:</label>
-                <span id="profile-email" class="profile-info"></span>
-            </div>
-        
-            <div class="profile-section">
-                <label class="profile-label">Banner:</label>
-                <img id="profile-banner" class="profile-banner" src="" alt="Banner">
+                <div class="listing-ends-at"></div>
+    
+                <div class="bid-form">
+                    <input type="number" class="bid-input" placeholder="Enter your bid">
+                    <button class="bid-button">Place Bid</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    
+    
 
     
     

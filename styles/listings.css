@@ -4,6 +4,11 @@ h2 {
     margin-left: 1.5em;
 }
 
+.your-listings-header {
+    text-align: center;
+}
+
+
 #image-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); 
@@ -46,6 +51,7 @@ h2 {
     width: 200px;
     height: 200px;
 }
+
 
 .image-placeholder {
     max-width: 250px; 
@@ -144,3 +150,5 @@ h2 {
     background-color: #D97217;
     background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 }
+
+

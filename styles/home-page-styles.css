@@ -43,10 +43,24 @@ body {
 .header-title {
     z-index: 5; 
     color: black;
-    font-size: 2em;
+    font-size: 1.5em;
     text-align: center;
-    margin-bottom: 2em;
+    margin: 0;
 }
+
+.header-title h1 {
+    font-size: 2.5em; 
+}
+
+.header-title h2 {
+    font-size: 1.2em; 
+}
+
+
+
+
+
+
 
 .header-logo {
     max-width: 6em;
@@ -65,23 +79,58 @@ body {
     margin: 0;
 }
 
-.nav-buttons li {
-    margin-right: 3em; 
-}
 
-.nav-buttons li a {
-    text-decoration: none; 
-    color: inherit; 
-    font-weight: bold; 
+
+
+
+
+
+
+
+
+.nav-buttons {
     display: flex;
-    align-items: center; 
+    list-style: none;
+    padding: 0;
+    margin-right: 3em; 
+    gap: 20px; 
 }
 
-.nav-buttons li a:hover {
-    text-decoration: underline;
+#linkToHomeButton, #logoutButton, #linkToProfileButton {
+    font-family: "Roboto", system-ui;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #E78C3B;
+    background-color: #E78C3B;
+    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+    color: black;
+    border: 1px solid #E78C3B;
     cursor: pointer;
-    font-weight:bolder;
+    transition: background-color 0.3s ease;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
+
+#linkToHomeButton:hover, #logoutButton:hover, #linkToProfileButton:hover {
+
+background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
+cursor: pointer;
+}
+
+#navCreditsButton {
+
+    border: 1px solid #D97217;
+    border-radius: 5px;
+    background-color: #E78C3B;
+    color: black;
+    font-family: "Roboto", system-ui;
+}
+
+
+
+
+
 
 .input-group {
     display: flex;
