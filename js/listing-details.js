@@ -5,27 +5,34 @@
 // listing-details.js
 
 
+
+
+import { deleteListing } from './delete-listing.js';
+import { load } from './login-and-register.js'; 
+
+const API_BASE = "https://v2.api.noroff.dev"; 
+
 const urlParams = new URLSearchParams(window.location.search);
 const listingId = urlParams.get('id');
 
 if (listingId) {
-    const url = `https://v2.api.noroff.dev/auction/listings/${listingId}?_seller=true&_bids=true`;
+    const url = `${API_BASE}/auction/listings/${listingId}?_seller=true&_bids=true`;  
 
     fetch(url)
         .then(response => response.json())
         .then(result => {
             const listing = result.data;
 
-            
+           
             const titleElement = document.querySelector('.listing-title');
             if (titleElement) {
                 titleElement.textContent = listing.title;
             }
 
-            
             const imgElement = document.querySelector('.listing-image');
             const imageContainer = document.querySelector('.listing-image-container');
 
+            
             if (imageContainer) {
                 const existingPlaceholder = imageContainer.querySelector('.image-placeholder');
                 if (existingPlaceholder) {
@@ -49,18 +56,16 @@ if (listingId) {
                 }
             }
 
-            
             const descriptionElement = document.querySelector('.listing-description');
             if (descriptionElement) {
                 descriptionElement.textContent = listing.description || 'No description available.';
             }
 
-            
             const endsAtElement = document.querySelector('.listing-ends-at');
             if (endsAtElement) {
                 const endsAt = new Date(listing.endsAt).getTime();
 
-                
+             
                 const countdownTimer = setInterval(() => {
                     const now = new Date().getTime();
                     const timeRemaining = endsAt - now;
@@ -70,24 +75,22 @@ if (listingId) {
                     const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-                    
                     if (timeRemaining > 0) {
                         endsAtElement.textContent = `Time Remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`;
                     } else {
-                        
                         clearInterval(countdownTimer);
                         endsAtElement.textContent = "Auction has ended!";
                     }
-                }, 1000); 
+                }, 1000);
             }
 
-         
+           
             const bidsElement = document.querySelector('.bids-info');
             const bidsContainer = document.querySelector('.bids-info-container');
             const toggleBidHistoryButton = document.querySelector('.toggle-bid-history-button');
 
             if (bidsElement && bidsContainer && toggleBidHistoryButton) {
-                
+              
                 if (listing.bids && listing.bids.length > 0) {
                     const bidsInfo = listing.bids.map(bid => {
                         return `Bid by ${bid.bidder.name}: ${bid.amount} at ${new Date(bid.created).toLocaleString()}`;
@@ -97,7 +100,7 @@ if (listingId) {
                     bidsElement.textContent = 'No bids available.';
                 }
 
-                
+             
                 toggleBidHistoryButton.addEventListener('click', () => {
                     if (bidsContainer.style.display === 'none') {
                         bidsContainer.style.display = 'block';
@@ -107,6 +110,24 @@ if (listingId) {
                         toggleBidHistoryButton.textContent = 'Show Bidding History';
                     }
                 });
+            }
+
+      
+            const profile = load('Profile'); 
+            const username = profile?.name;
+
+            if (listing.seller.name !== username) {
+                const deleteButtonContainer = document.querySelector('.delete-listing-container');
+                if (deleteButtonContainer) {
+                    deleteButtonContainer.style.display = 'none'; 
+                }
+            } else {
+                const deleteButton = document.querySelector('.delete-listing-button');
+                if (deleteButton) {
+                    deleteButton.addEventListener('click', () => {
+                        deleteListing(listingId);
+                    });
+                }
             }
 
         })

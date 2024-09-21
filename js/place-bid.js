@@ -152,10 +152,15 @@ export async function placeBid(listingId, bidAmount) {
 
         const profile = load('Profile');
         const updatedCredits = await fetchUserCredits(profile.name);
-        
-        profile.credits = updatedCredits; 
-        save('Profile', profile);
 
+        const updatedProfile = {
+            ...profile,  
+            credits: updatedCredits !== undefined ? updatedCredits : profile.credits  
+        };
+
+        console.log("Updated profile after bid:", updatedProfile);
+
+        save('Profile', updatedProfile);
         updateNavCredits();
 
         return data;
@@ -165,7 +170,64 @@ export async function placeBid(listingId, bidAmount) {
     }
 }
 
+
+async function handleAuctionEnd(listingId) {
+    try {
+        const response = await authorizedFetch(`${API_BASE}/auction/listings/${listingId}/bids`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch bid history');
+        }
+        const bidHistory = await response.json();
+
+        const highestBid = bidHistory.reduce((max, bid) => (bid.amount > max.amount ? bid : max), bidHistory[0]);
+
+        for (const bid of bidHistory) {
+            if (bid.userId !== highestBid.userId) {
+                if (bid.userId === load('Profile').id) {
+                    alert('You did not win the item, and your credits will be refunded.');
+                }
+                await refundUser(bid.userId, bid.amount);
+            }
+        }
+
+        console.log('Auction end handled successfully');
+    } catch (error) {
+        console.error('Error handling auction end:', error);
+    }
+}
+
+
+async function refundUser(userId, amount) {
+    try {
+        const userProfileResponse = await authorizedFetch(`${API_BASE}/auction/profiles/${userId}`);
+        if (!userProfileResponse.ok) {
+            throw new Error('Failed to fetch user profile');
+        }
+        const userProfile = await userProfileResponse.json();
+
+        const updatedCredits = userProfile.data.credits + amount;
+        userProfile.data.credits = updatedCredits;
+
+        await authorizedFetch(`${API_BASE}/auction/profiles/${userId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ credits: updatedCredits })
+        });
+
+        console.log(`Refunded ${amount} credits to user ${userId}`);
+    } catch (error) {
+        console.error('Error refunding credits:', error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+    const bidButton = document.querySelector('.bid-button');
+
+    if (!bidButton) {
+        console.log('Bid button not found on this page. Skipping bid functionality.');
+        return;
+    }
+
     const profile = load('Profile');
     const username = profile.name;
 
@@ -180,7 +242,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    document.querySelector('.bid-button').addEventListener('click', async () => {
+    bidButton.addEventListener('click', async () => {
         const bidInput = document.querySelector('.bid-input');
         const bidAmount = parseInt(bidInput.value, 10);
 
@@ -236,3 +298,4 @@ function isValidUUID(uuid) {
     const regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return regex.test(uuid);
 }
+

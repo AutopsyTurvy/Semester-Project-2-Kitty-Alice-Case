@@ -5,12 +5,13 @@
 
 // login-and-register.js
 
+
+
 export const API_BASE = "https://v2.api.noroff.dev";
 export const API_AUTH = "/auth";
 export const API_REGISTER = "/register";
 export const API_LOGIN = "/login";
 export const API_KEY_URL = "/create-api-key";
-
 
 export function save(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
@@ -20,15 +21,53 @@ export function load(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
-export async function register(name, email, password) {
-    console.log("Attempting to register with:", { name, email, password });
+export async function fetchCompleteProfile() {
+    const token = load('Token'); 
+
+    if (!token) {
+        console.error('No token found.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/auction/profiles/me`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const profileData = await response.json();
+            console.log('Complete Profile Data:', profileData);
+
+            save('Profile', profileData); 
+            return profileData;
+        } else {
+            const error = await response.json();
+            console.error('Failed to fetch complete profile:', error);
+        }
+    } catch (error) {
+        console.error('Error fetching complete profile:', error);
+    }
+}
+
+export async function register(name, email, password, avatarUrl, bannerUrl) {
+    console.log("Attempting to register with:", { name, email, password, avatarUrl, bannerUrl });
     
     const response = await fetch(`${API_BASE}${API_AUTH}${API_REGISTER}`, {
         headers: {
             "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({
+            name,
+            email,
+            password,
+            avatar: { url: avatarUrl },  
+            banner: { url: bannerUrl }   
+        }),
     });
 
     if (response.ok) {
@@ -41,6 +80,20 @@ export async function register(name, email, password) {
     console.error("Registration failed with response:", errorText);
     throw new Error("Failed to register account");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Login function:
 
 export async function login(email, password) {
     console.log("Attempting to log in with:", { email, password });
@@ -55,30 +108,47 @@ export async function login(email, password) {
 
     if (response.ok) {
         const responseData = await response.json();
-        const { accessToken, name, email, avatar, banner, venueManager } = responseData.data;
+        const { accessToken, name, email, avatar, banner, credits } = responseData.data;
         
         console.log("Login successful, received profile:", responseData.data);
         
-        save("Token", accessToken);
+        
+        save("Token", accessToken);  
 
-        const profile = {
+       
+        const completeProfile = await fetchCompleteProfile();  
+        console.log("Complete profile after login:", completeProfile);  
+
+       
+        const updatedProfile = {
             name,
             email,
-            avatar: avatar || { url: 'https://default-avatar-url.com/avatar.jpg', alt: 'Default Avatar' },
-            banner: banner || { url: '/images/stacked-boxes.jpg', alt: 'Default Banner' },
-            venueManager: venueManager || false,
+            avatar: avatar || 'https://default-avatar-url.com/avatar.jpg',
+            banner: banner || '/images/stacked-boxes.jpg',
+            credits: completeProfile?.credits !== undefined ? completeProfile.credits : credits
         };
-        save("Profile", profile);
-        
-        console.log("User profile saved:", profile);
-        
-        return profile;
+
+        console.log("Updated profile after login:", updatedProfile);
+
+       
+        save("Profile", updatedProfile);  
+
+        return updatedProfile;
     }
 
+ 
     const errorText = await response.text();
     console.error("Login failed with response:", errorText);
     throw new Error("Failed to login");
 }
+
+
+
+
+
+
+
+
 
 export async function onAuth(event) {
     event.preventDefault();
@@ -88,30 +158,77 @@ export async function onAuth(event) {
     const name = form.elements['registerName']?.value;
     const email = form.elements['registerEmail']?.value;
     const password = form.elements['registerPassword']?.value;
-    const avatar = form.elements['avatar']?.value;  
-    const banner = form.elements['banner']?.value;
+    const avatarUrl = form.elements['avatar']?.value;  
+    const avatarAlt = form.elements['avatarAlt']?.value;
+    const bannerUrl = form.elements['banner']?.value;  
+    const bannerAlt = form.elements['bannerAlt']?.value;
 
-    console.log("Form data:", { name, email, avatar, banner });
+    console.log("Form data:", { name, email, avatarUrl, bannerUrl, avatarAlt, bannerAlt });
+
+  
+    const namePattern = /^[a-zA-Z0-9_]+$/;
+    if (!namePattern.test(name)) {
+        alert("Name can only contain letters, numbers, and underscores (_).");
+        return;
+    }
+
+ 
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@(noroff\.no|stud\.noroff\.no)$/;
+    if (!emailPattern.test(email)) {
+        alert("Please provide a valid Noroff email address (either @noroff.no or @stud.noroff.no).");
+        return;
+    }
+
+  
+    if (password.length < 8) {
+        alert("Password must be at least 8 characters.");
+        return;
+    }
+
+    
+    const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+)\.[a-zA-Z]{2,}.*$/;
+    if (avatarUrl && !urlPattern.test(avatarUrl)) {
+        alert("Please provide a valid avatar URL.");
+        return;
+    }
+
+  
+    if (avatarAlt && (avatarAlt.length > 120 || !avatarUrl)) {
+        alert("Avatar alt text must be less than 120 characters and requires a valid avatar URL.");
+        return;
+    }
+
+  
+    if (bannerUrl && !urlPattern.test(bannerUrl)) {
+        alert("Please provide a valid banner URL.");
+        return;
+    }
+
+    
+    if (bannerAlt && (bannerAlt.length > 120 || !bannerUrl)) {
+        alert("Banner alt text must be less than 120 characters and requires a valid banner URL.");
+        return;
+    }
 
     try {
-        await register(name, email, password);
+        await register(name, email, password, avatarUrl, bannerUrl);
         console.log("User successfully registered.");
         
         const profile = await login(email, password);
         console.log("User logged in, updating profile with avatar, banner, and credits.");
 
         const updatedProfile = {
-            ...profile,
-            avatar: { url: avatar || 'https://default-avatar-url.com/avatar.jpg' },
-            banner: { url: banner || '/images/stacked-boxes.jpg' },
-            credits: 1000  
+            name,
+            email,
+            avatar: { url: avatarUrl || 'https://default-avatar-url.com/avatar.jpg', alt: avatarAlt || "" },
+            banner: { url: bannerUrl || '/images/stacked-boxes.jpg', alt: bannerAlt || "" },
+            credits: 1000
         };
 
-        console.log("Updated profile with credits:", updatedProfile);
+        console.log("Updated profile with initial credits, avatar, and banner:", updatedProfile);
 
-        save("Profile", updatedProfile);
-        
-        
+        save("Profile", updatedProfile);  
+
         if (!load("ApiKey")) {
             console.log("No API key found, attempting to fetch API key...");
             await getApiKey(); 
@@ -149,7 +266,6 @@ export async function onLogin(event) {
         const profile = await login(email, password);
         console.log("User logged in successfully:", profile);
 
-        
         if (!load("ApiKey")) {
             console.log("No API key found, attempting to fetch API key...");
             await getApiKey();  
@@ -175,11 +291,25 @@ export function setLoginListeners() {
     }
 }
 
-// This is the good old "Logout function"
+
+
+
+
+
+
+
+
+
+
+
+// Log out Function
+
 export function logout() {
     console.log("Logging out...");
 
-    localStorage.clear();
+    localStorage.removeItem("Token");  
+    localStorage.removeItem("ApiKey"); 
+    localStorage.removeItem("Profile"); 
 
     window.location.href = "/index.html";
 }

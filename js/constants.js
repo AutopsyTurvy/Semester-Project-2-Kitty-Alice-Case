@@ -30,8 +30,17 @@ export const ALL_LISTINGS_URL = `${API_HOST_URL}${AUCTION}${API_LISTINGS_BASE}`;
 export const BASE_BID_URL = (id) => `${API_HOST_URL}${AUCTION}${API_LISTINGS_BASE}/${id}/bids`;
 
 
-// Create Listing
-
+// Create Listings:
 // /auction/listings
 
 export const CREATE_LISTING = `${API_HOST_URL}${AUCTION}${API_LISTINGS_BASE}`;
+
+
+// ..........................................................Profiles..........................................................
+//.............................................................................................................................
+//.............................................................................................................................
+
+
+// /auction/profiles
+
+export const ALL_PROFILES_URL = `${API_HOST_URL}${AUCTION}${API_PROFILES_BASE}`;

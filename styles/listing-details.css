@@ -175,3 +175,24 @@
         height: 200px; 
     }
 }
+
+
+
+
+
+.delete-listing-button {
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #F1948A 0%, #E74C3C 50%, #C0392B 100%);
+    color: white;
+    border: 1px solid #C0392B;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 3em;
+    font-size: 16px;
+}
+
+.delete-listing-button:hover {
+    background: linear-gradient(to top, #F1948A 0%, #E74C3C 50%, #C0392B 100%);
+}

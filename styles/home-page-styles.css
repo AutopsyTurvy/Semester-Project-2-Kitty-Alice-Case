@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+
 }
 
 .large-header-container {
@@ -36,7 +37,8 @@ body {
     align-items: center; 
     width: 100%;
     padding: 0 20px; 
-    position: relative;
+    position: sticky; 
+    top: 0; 
     z-index: 5; 
 }
 
@@ -96,7 +98,7 @@ body {
     gap: 20px; 
 }
 
-#linkToHomeButton, #logoutButton, #linkToProfileButton {
+#linkToHomeButton, #logoutButton, #linkToProfileButton, #linkToAllProfilesButton, #loginButton, #registerButton {
     font-family: "Roboto", system-ui;
     padding: 10px;
     font-size: 1em;
@@ -112,7 +114,7 @@ body {
     border-radius: 5px;
 }
 
-#linkToHomeButton:hover, #logoutButton:hover, #linkToProfileButton:hover {
+#linkToHomeButton:hover, #logoutButton:hover, #linkToProfileButton:hover, #linkToAllProfilesButton:hover, #loginButton:hover, #registerButton:hover  {
 
 background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 cursor: pointer;

@@ -11,17 +11,16 @@
     
     <link rel="stylesheet" href="/styles/home-page-styles.css">
     <link rel="stylesheet" href="/styles/listings.css">
+    <link rel="stylesheet" href="/styles/all-profiles.css">
 
-
-    <script type="module" src="/js/login-and-register.js"></script>
     <script type="module" src="/js/nav-buttons.js"></script>
-    <script type="module" src="/js/all-listings.js"></script>
-    <script type="module" src="/js/credit-count.js"></script>
+    <script type="module" src="/js/login-and-register.js"></script>
+    <script type="module" src="/js/all-profiles.js"></script>
     
     
 
     
-    <title>Welcome! Browse our site!</title>
+    <title>See All Profiles</title>
 </head>
 <body>
 
@@ -38,12 +37,19 @@
     
             <ul class="nav-buttons">
 
+                <button id="linkToHomeButton">Home</button>
+                
 
-                <button id="loginButton">Log In</button>
+                <button id="linkToProfileButton">Your Profile</button>
 
 
-                <button id="registerButton">Register</button>
+                <button id="linkToAllProfilesButton">All Profiles</button>
+                
 
+                <button id="logoutButton">Logout</button>
+
+
+                <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
 
 
             </ul>
@@ -55,33 +61,12 @@
         </div>
     </header>
 
+    <h2>All User Profiles:</h2>
 
-
-
-
-
-
-
-
-
-
-
-
-    <h2>Browse Our Auctions:</h2>
-    <button id="toggle-active-listings">Show Active Listings</button>
-
-
-    <div id="image-container"></div>
-
-    
-    <div id="button-container">
-      <button id="show-more" style="display:none;">Show More</button>
-      <button id="show-less" style="display:none;">Show Less</button>
-    </div>  
-
+    <div id="profiles-container" class="profile-grid"></div>
+   
 
 </body>
 </html>
-
 
 

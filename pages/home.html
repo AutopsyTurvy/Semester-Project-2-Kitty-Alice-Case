@@ -18,6 +18,7 @@
     <script type="module" src="/js/all-listings.js"></script>
     <script type="module" src="/js/credit-count.js"></script>
     
+    
 
     
     <title>Home Page</title>
@@ -31,8 +32,8 @@
     
             <div class="input-group">
                 <label class="input-label" for="search"></label>
-                <input type="search" id="search" name="search" required placeholder="Search:">
-                <button type="submit" class="search-button">Search</button>
+                <input type="text" id="search" placeholder="Search for listings...">
+                <button type="submit" class="search-button" id="searchButton">Search</button>
             </div>
     
             <ul class="nav-buttons">
@@ -40,7 +41,10 @@
                 <button id="linkToHomeButton">Home</button>
                 
 
-                <button id="linkToProfileButton">Profile</button>
+                <button id="linkToProfileButton">Your Profile</button>
+
+
+                <button id="linkToAllProfilesButton">All Profiles</button>
                 
 
                 <button id="logoutButton">Logout</button>
@@ -59,10 +63,24 @@
     </header>
 
 
+
+
+
+
+
+
+
+
+
+
+
     <h2>Browse Our Auctions:</h2>
+    <button id="toggle-active-listings">Show Active Listings</button>
 
 
     <div id="image-container"></div>
+
+    
     <div id="button-container">
       <button id="show-more" style="display:none;">Show More</button>
       <button id="show-less" style="display:none;">Show Less</button>

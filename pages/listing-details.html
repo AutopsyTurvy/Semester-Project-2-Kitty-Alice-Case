@@ -18,6 +18,7 @@
     <script type="module" src="/js/listing-details.js"></script>
     <script type="module" src="/js/place-bid.js"></script>
     <script type="module" src="/js/credit-count.js"></script>
+    <script type="module" src="/js/edit-listing.js"></script>
 
     
 
@@ -52,6 +53,17 @@
 
             </ul>
         </nav>
+
+
+
+
+
+
+
+
+
+
+
     
         <div class="header-title">
             <h1>Auction House</h1>
@@ -63,17 +75,17 @@
     <div class="page-wrapper">
         <div class="listing-container">
             <div class="listing-image-container">
-                <img class="listing-image" alt="Listing Image">
+                <img class="listing-image" alt="Listing Image"><i class="fa-solid fa-pencil edit-image"></i>
             </div>
     
             <div class="listing-details">
-                <h2 class="listing-title"></h2>
+                <h2 class="listing-title"></h2><i class="fa-solid fa-pencil edit-title"></i>
                 
                 <div class="seller-info"></div>
                 
                 
                 <div class="listing-section-label"><strong>Description:</strong></div>
-                <div class="listing-description"></div>
+                <div class="listing-description"></div><i class="fa-solid fa-pencil edit-description"></i>
                 
                
                 
@@ -93,6 +105,13 @@
                 <div class="bid-form">
                     <input type="number" class="bid-input" placeholder="Enter your bid">
                     <button class="bid-button">Place Bid</button>
+                </div>
+
+
+
+
+                <div class="delete-listing-container">
+                    <button class="delete-listing-button">Delete Listing</button>
                 </div>
             </div>
         </div>

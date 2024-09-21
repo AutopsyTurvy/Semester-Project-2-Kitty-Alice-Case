@@ -15,11 +15,11 @@
     <link rel="stylesheet" href="/styles/user-listings.css">
 
     <script type="module" src="/js/nav-buttons.js"></script>
-    <script type="module" src="/js/login-and-register.js"></script>
     <script type="module" src="/js/profile.js"></script>
     <script type="module" src="/js/credit-count.js"></script>
     <script type="module" src="/js/create-listing.js"></script>
     <script type="module" src="/js/user-listings.js"></script>
+
 
     
     
@@ -42,13 +42,17 @@
                 <button id="linkToHomeButton">Home</button>
                 
 
-                <button id="linkToProfileButton">Profile</button>
+                <button id="linkToProfileButton">Your Profile</button>
+
+
+                <button id="linkToAllProfilesButton">All Profiles</button>
                 
 
                 <button id="logoutButton">Logout</button>
-                
+
 
                 <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
+
 
             </ul>
         </nav>
@@ -75,6 +79,7 @@
     
             <div class="profile-avatar-container">
                 <img id="profile-avatar" class="profile-avatar" src="" alt="Profile Picture">
+                <i class="fa-solid fa-pencil edit-avatar"></i> 
             </div>
     
             <div class="profile-details">
