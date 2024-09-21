@@ -337,9 +337,10 @@ export function setLogoutListener() {
         });
         console.log("Logout listener set.");
     } else {
-        console.warn("Logout button was not found.");
+        console.warn("Logout button was not found, bypassing logout functionality.");
     }
 }
+
 
 
 
@@ -417,5 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setAuthListeners();
     }
 
-    setLogoutListener();
+    setLogoutListener(); 
 });
+
