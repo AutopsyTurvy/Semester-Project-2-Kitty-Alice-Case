@@ -7,6 +7,8 @@
 
 
 
+import { fetchUserCredits, updateUserCredits } from './credits.js'; 
+
 export const API_BASE = "https://v2.api.noroff.dev";
 export const API_AUTH = "/auth";
 export const API_REGISTER = "/register";
@@ -58,8 +60,10 @@ export async function fetchCompleteProfile() {
 
 
 
-// Register 
 
+
+
+// Register Function
 export async function register(name, email, password, avatarUrl, bannerUrl) {
     console.log("Attempting to register with:", { name, email, password, avatarUrl, bannerUrl });
     
@@ -73,13 +77,31 @@ export async function register(name, email, password, avatarUrl, bannerUrl) {
             email,
             password,
             avatar: { url: avatarUrl },  
-            banner: { url: bannerUrl }   
+            banner: { url: bannerUrl }
         }),
     });
 
     if (response.ok) {
         const jsonResponse = await response.json();
         console.log("Registration successful:", jsonResponse);
+
+       
+        const updateResult = await updateUserCredits(jsonResponse.name, 1000); 
+
+        if (updateResult) {
+            console.log("Credits successfully added to the API:", updateResult);
+        } else {
+            console.error("Failed to add credits to the API.");
+        }
+
+      
+        const storedCredits = await fetchUserCredits(jsonResponse.name); 
+        if (storedCredits !== null) {
+            console.log(`Credits successfully fetched from API for user ${jsonResponse.name}:`, storedCredits);
+        } else {
+            console.error(`Failed to fetch credits for user ${jsonResponse.name}.`);
+        }
+
         return jsonResponse;
     }
 
@@ -96,15 +118,10 @@ export async function register(name, email, password, avatarUrl, bannerUrl) {
 
 
 
-
-
-
-
-// Login function:
-
+// Login function
 export async function login(email, password) {
     console.log("Attempting to log in with:", { email, password });
-    
+
     const response = await fetch(`${API_BASE}${API_AUTH}${API_LOGIN}`, {
         headers: {
             "Content-Type": "application/json",
@@ -116,34 +133,38 @@ export async function login(email, password) {
     if (response.ok) {
         const responseData = await response.json();
         const { accessToken, name, email, avatar, banner, credits } = responseData.data;
-        
+
         console.log("Login successful, received profile:", responseData.data);
         
-        
-        save("Token", accessToken);  
+        save("Token", accessToken);
+
+        const completeProfile = await fetchCompleteProfile();
+        console.log("Complete profile after login:", completeProfile);
 
        
-        const completeProfile = await fetchCompleteProfile();  
-        console.log("Complete profile after login:", completeProfile);  
+        console.log(`Fetching credits for user ${name}...`);  
+        const storedCredits = await fetchUserCredits(name);
+        if (storedCredits !== null) {
+            console.log(`Credits successfully fetched for user ${name}:`, storedCredits);
+        } else {
+            console.error(`Failed to fetch credits for user ${name}.`);
+        }
 
-       
         const updatedProfile = {
             name,
             email,
             avatar: avatar || 'https://default-avatar-url.com/avatar.jpg',
             banner: banner || '/images/stacked-boxes.jpg',
-            credits: completeProfile?.credits !== undefined ? completeProfile.credits : credits
+            credits: storedCredits ?? credits  
         };
 
         console.log("Updated profile after login:", updatedProfile);
 
-       
-        save("Profile", updatedProfile);  
+        save("Profile", updatedProfile);
 
         return updatedProfile;
     }
 
- 
     const errorText = await response.text();
     console.error("Login failed with response:", errorText);
     throw new Error("Failed to login");
@@ -157,11 +178,15 @@ export async function login(email, password) {
 
 
 
+
+
+
+
+// Handles Registration Event
 export async function onAuth(event) {
     event.preventDefault();
     
     const form = event.target;
-   
     const name = form.elements['registerName']?.value;
     const email = form.elements['registerEmail']?.value;
     const password = form.elements['registerPassword']?.value;
@@ -171,51 +196,6 @@ export async function onAuth(event) {
     const bannerAlt = form.elements['bannerAlt']?.value;
 
     console.log("Form data:", { name, email, avatarUrl, bannerUrl, avatarAlt, bannerAlt });
-
-  
-    const namePattern = /^[a-zA-Z0-9_]+$/;
-    if (!namePattern.test(name)) {
-        alert("Name can only contain letters, numbers, and underscores (_).");
-        return;
-    }
-
- 
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@(noroff\.no|stud\.noroff\.no)$/;
-    if (!emailPattern.test(email)) {
-        alert("Please provide a valid Noroff email address (either @noroff.no or @stud.noroff.no).");
-        return;
-    }
-
-  
-    if (password.length < 8) {
-        alert("Password must be at least 8 characters.");
-        return;
-    }
-
-    
-    const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+)\.[a-zA-Z]{2,}.*$/;
-    if (avatarUrl && !urlPattern.test(avatarUrl)) {
-        alert("Please provide a valid avatar URL.");
-        return;
-    }
-
-  
-    if (avatarAlt && (avatarAlt.length > 120 || !avatarUrl)) {
-        alert("Avatar alt text must be less than 120 characters and requires a valid avatar URL.");
-        return;
-    }
-
-  
-    if (bannerUrl && !urlPattern.test(bannerUrl)) {
-        alert("Please provide a valid banner URL.");
-        return;
-    }
-
-    
-    if (bannerAlt && (bannerAlt.length > 120 || !bannerUrl)) {
-        alert("Banner alt text must be less than 120 characters and requires a valid banner URL.");
-        return;
-    }
 
     try {
         await register(name, email, password, avatarUrl, bannerUrl);
@@ -229,7 +209,7 @@ export async function onAuth(event) {
             email,
             avatar: { url: avatarUrl || 'https://default-avatar-url.com/avatar.jpg', alt: avatarAlt || "" },
             banner: { url: bannerUrl || '/images/stacked-boxes.jpg', alt: bannerAlt || "" },
-            credits: 1000
+            credits: 1000  
         };
 
         console.log("Updated profile with initial credits, avatar, and banner:", updatedProfile);
@@ -251,6 +231,17 @@ export async function onAuth(event) {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+// Set listeners for registration form
 export function setAuthListeners() {
     const registerForm = document.getElementById("registerForm");
 
@@ -262,6 +253,18 @@ export function setAuthListeners() {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+// Set listeners for login form
 export async function onLogin(event) {
     event.preventDefault(); 
 
@@ -287,6 +290,14 @@ export async function onLogin(event) {
     }
 }
 
+
+
+
+
+
+
+
+// Set listeners for login form
 export function setLoginListeners() {
     const loginForm = document.getElementById("loginForm");
 
@@ -305,18 +316,13 @@ export function setLoginListeners() {
 
 
 
-
-
-
-
 // Log out Function
-
 export function logout() {
     console.log("Logging out...");
 
     localStorage.removeItem("Token");  
     localStorage.removeItem("ApiKey"); 
-    localStorage.removeItem("Profile"); 
+    localStorage.removeItem("Profile");  
 
     window.location.href = "/index.html";
 }
@@ -335,12 +341,15 @@ export function setLogoutListener() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    setAuthListeners();
-    setLoginListeners();
-    setLogoutListener();  
-});
 
+
+
+
+
+
+
+
+// Get the API Key
 export async function getApiKey() {
     try {
         console.log("Attempting to fetch API key.");
@@ -398,3 +407,15 @@ export async function fetchWithApiKey(url) {
     console.log("Data fetched successfully:", data);
     return data;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("loginForm")) {
+        setLoginListeners();
+    }
+
+    if (document.getElementById("registerForm")) {
+        setAuthListeners();
+    }
+
+    setLogoutListener();
+});

@@ -5,7 +5,6 @@
 // place-bid.js
 
 
-
 import { load, save } from './login-and-register.js'; 
 import { updateNavCredits } from './credit-count.js';  
 
@@ -298,4 +297,3 @@ function isValidUUID(uuid) {
     const regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return regex.test(uuid);
 }
-
