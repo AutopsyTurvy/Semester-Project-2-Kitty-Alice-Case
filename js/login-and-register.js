@@ -332,14 +332,11 @@ export function setLogoutListener() {
 
     if (logoutButton) {
         logoutButton.addEventListener("click", (event) => {
-            console.log("Logout button clicked");
             logout();
         });
-        console.log("Logout listener set.");
-    } else {
-        console.warn("Logout button was not found, bypassing logout functionality.");
     }
 }
+
 
 
 
