@@ -53,6 +53,13 @@ export async function fetchCompleteProfile() {
     }
 }
 
+
+
+
+
+
+// Register 
+
 export async function register(name, email, password, avatarUrl, bannerUrl) {
     console.log("Attempting to register with:", { name, email, password, avatarUrl, bannerUrl });
     
