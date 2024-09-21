@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="/styles/listings.css">
 
 
-    <script type="module" src="/js/login-and-register.js"></script>
-    <script type="module" src="/js/nav-buttons.js"></script>
-    <script type="module" src="/js/all-listings.js"></script>
-    <script type="module" src="/js/credit-count.js"></script>
+    <script type="module" src="/js/login-and-register.js" defer></script>
+    <script type="module" src="/js/nav-buttons.js" defer></script>
+    <script type="module" src="/js/all-listings.js" defer></script>
+    <script type="module" src="/js/credit-count.js" defer></script>
     
     
 
@@ -31,7 +31,7 @@
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
             <div class="input-group">
-                <label class="input-label" for="search"></label>
+                <label class="input-label" for="search">Search Listings</label>
                 <input type="text" id="search" placeholder="Search for listings...">
                 <button type="submit" class="search-button" id="searchButton">Search</button>
             </div>
@@ -58,26 +58,17 @@
 
 
 
-
-
-
-
-
-
-
-
-
-    <h2>Browse Our Auctions:</h2>
-    <button id="toggle-active-listings">Show Active Listings</button>
-
-
-    <div id="image-container"></div>
-
+    <section>
+        <h2>Browse Our Auctions:</h2>
+        <button id="toggle-active-listings">Show Active Listings</button>
     
-    <div id="button-container">
-      <button id="show-more" style="display:none;">Show More</button>
-      <button id="show-less" style="display:none;">Show Less</button>
-    </div>  
+        <div id="image-container"></div>
+    
+        <div id="button-container">
+          <button id="show-more" style="display:none;">Show More</button>
+          <button id="show-less" style="display:none;">Show Less</button>
+        </div>
+    </section>
 
 
 </body>
