@@ -7,13 +7,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     
-    
-    
    
     <link rel="stylesheet" href="../styles/login-styles.css">
 
-    <script defer type="module" src="/js/login-and-register.js"></script>
-    <script type="module" src="/js/credits.js"></script>
+    <script defer type="module" src="/js/login-and-register.js" defer></script>
+    <script type="module" src="/js/credits.js" defer></script>
     
     <title>Login</title>
 
@@ -33,7 +31,7 @@
                        title="Only 'stud.noroff' or 'noroff.no' emails can register. Apologies for any inconvenience."
                        required placeholder="Your email:">
             </div>
-            <div id="email-error"></div>
+            <div id="email-error" aria-live="polite"></div>
 
           
             <div class="input-group">
@@ -41,12 +39,11 @@
                 <input type="password" id="password" name="loginPassword" minlength="8" required
                        placeholder="Your password:">
             </div>
-            <div id="password-error"></div>
+            <div id="password-error" aria-live="polite"></div>
 
          
             <div class="login-button-positioning">
                 <button class="login-button-styles" id="loginButton" type="submit">Login</button>
-
                 <hr style="border: none; height: 2px; background-color: #E78C3B; width: 80%; margin: 20px auto;">
 
                 <p>Don't have an account? Create one!</p>
