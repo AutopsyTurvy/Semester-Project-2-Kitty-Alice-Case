@@ -14,16 +14,10 @@
 .hamburger-icon {
     display: none;
     margin-right: 1em;
+    font-size: 32px; 
+    cursor: pointer;
+    z-index: 1001;
 }
-
-#button-container {
-    display: none;
-}
-
-
-
-
-
 
 
 
@@ -47,11 +41,10 @@
     }
  
     .hamburger-icon {
-        display: block; 
-        cursor: pointer;
-        font-size: 24px;
-        z-index: 1001; 
+        display: block;
+        font-size: 32px; 
     }
+
 
     .nav-buttons button {
         padding: 15px;
@@ -69,8 +62,4 @@
 }
 
 
-@media screen and (max-width: 768px) {
-    #button-container {
-        display: block;
-    }
-}
+
