@@ -7,9 +7,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    
     <link rel="stylesheet" href="/styles/home-page-styles.css">
     <link rel="stylesheet" href="/styles/listings.css">
     <link rel="stylesheet" href="/styles/listing-details.css">
+    <link rel="stylesheet" href="/styles/hamburger-menu.css">
+    <link rel="stylesheet" href="/styles/dropdown-buttons.css">
 
 
     
@@ -19,6 +23,8 @@
     <script type="module" src="/js/place-bid.js"></script>
     <script type="module" src="/js/credit-count.js"></script>
     <script type="module" src="/js/edit-listing.js"></script>
+    <script type="module" src="/js/hamburger-menu.js"></script>
+    <script type="module" src="/js/dropdown-buttons.js"></script>
 
     
 
@@ -32,25 +38,22 @@
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
-            <div class="input-group">
-                <label class="input-label" for="search"></label>
-                <input type="search" id="search" name="search" required placeholder="Search:">
-                <button type="submit" class="search-button">Search</button>
+            
+
+
+
+
+            <div class="hamburger-icon" id="hamburger-icon">
+                <i class="fas fa-bars"></i>
             </div>
-    
-            <ul class="nav-buttons">
 
-                <button id="linkToHomeButton">Home</button>
-                
-
-                <button id="linkToProfileButton">Profile</button>
-                
-
-                <button id="logoutButton">Logout</button>
-                
-
-                <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
-
+         
+            <ul class="nav-buttons" id="nav-menu">
+                <li><button id="linkToHomeButton">Home</button></li>
+                <li><button id="linkToProfileButton">Your Profile</button></li>
+                <li><button id="linkToAllProfilesButton">All Profiles</button></li>
+                <li><button id="logoutButton">Logout</button></li>
+                <li><button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button></li>
             </ul>
         </nav>
 
@@ -70,6 +73,19 @@
             <h2>The Best Spot for Buying and Selling!</h2>
         </div>
     </header>
+
+
+
+
+    <ul class="nav-dropdown" id="nav-dropdown-menu">
+        <li><button id="dropdownLinkToHomeButton">Home</button></li>
+        <li><button id="dropdownLinkToProfileButton">Your Profile</button></li>
+        <li><button id="dropdownLinkToAllProfilesButton">All Profiles</button></li>
+        <li><button id="dropdownLogoutButton">Logout</button></li>
+    </ul>
+
+
+
 
 
     <div class="page-wrapper">

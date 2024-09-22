@@ -15,11 +15,10 @@ export function updateNavCredits() {
     const profile = load('Profile');
     const credits = profile ? profile.credits : 0;
 
-  
-    const creditsDisplayElement = document.getElementById('creditsDisplay');
-    if (creditsDisplayElement) {
-        creditsDisplayElement.textContent = credits;
-    }
+    const creditsDisplayElements = document.querySelectorAll('#creditsDisplay'); 
+    creditsDisplayElements.forEach(element => {
+        element.textContent = credits;
+    });
 }
 
 

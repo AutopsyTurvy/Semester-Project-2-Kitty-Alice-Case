@@ -31,29 +31,17 @@
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
-            <div class="input-group">
-                <label class="input-label" for="search"></label>
-                <input type="text" id="search" placeholder="Search for listings...">
-                <button type="submit" class="search-button" id="searchButton">Search</button>
+
+            <div class="hamburger-icon" id="hamburger-icon"></div>
+                <i class="fas fa-bars"></i>
             </div>
     
-            <ul class="nav-buttons">
-
-                <button id="linkToHomeButton">Home</button>
-                
-
-                <button id="linkToProfileButton">Your Profile</button>
-
-
-                <button id="linkToAllProfilesButton">All Profiles</button>
-                
-
-                <button id="logoutButton">Logout</button>
-
-
-                <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
-
-
+            <ul class="nav-buttons" id="nav-menu">
+                <li><button id="linkToHomeButton">Home</button></li>
+                <li><button id="linkToProfileButton">Your Profile</button></li>
+                <li><button id="linkToAllProfilesButton">All Profiles</button></li>
+                <li><button id="logoutButton">Logout</button></li>
+                <li><button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button></li>
             </ul>
         </nav>
     
@@ -64,6 +52,12 @@
     </header>
 
 
+    <ul class="nav-dropdown" id="nav-dropdown-menu">
+        <li><button id="dropdownLinkToHomeButton">Home</button></li>
+        <li><button id="dropdownLinkToProfileButton">Your Profile</button></li>
+        <li><button id="dropdownLinkToAllProfilesButton">All Profiles</button></li>
+        <li><button id="dropdownLogoutButton">Logout</button></li>
+    </ul>
 
 
 
