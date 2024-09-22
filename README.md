@@ -2,11 +2,13 @@
 ---
 
 ![Login Page](./images/readme-images/loginimage.jpeg)
+![Login Page](./images/readme-images/signupimage.jpeg)
+![Login Page](./images/readme-images/landingpageimage.jpeg)
+![Login Page](./images/readme-images/yourprofileimage.jpeg)
+![Login Page](./images/readme-images/createnewlistingimage.jpeg)
+![Login Page](./images/readme-images/allusersimage.jpeg)
 
-![Login Page](https://github.com/AutopsyTurvy/Semester-project-2-kitty-Alice-Case/images/readme-images/loginimage.jpeg)
 
-
-![capChatLogo](https://github.com/AutopsyTurvy/JavaScript2-CapChat-kitty-Alice-Case/assets/102550358/2c3c7e07-7176-44f4-8420-a358ba64e2f0)
 
 ---
 
