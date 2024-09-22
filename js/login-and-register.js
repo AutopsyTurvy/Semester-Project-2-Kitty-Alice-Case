@@ -303,12 +303,6 @@ export async function onLogin(event) {
 }
 
 
-
-
-
-
-
-
 // Set listeners for login form
 export function setLoginListeners() {
     const loginForm = document.getElementById("loginForm");
