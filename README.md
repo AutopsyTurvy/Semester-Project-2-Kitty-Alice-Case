@@ -206,7 +206,7 @@ Will eventually add functionality to these so that the user can click and see th
 
 ** Note **
 
-## Did not use pure Bootstrap, as i find it exceptionally impractical and not very responsive.
+## Did not use pure Bootstrap, as I find it exceptionally impractical and not very responsive. It is only used on the login and register forms.
 
 
 <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/HTML.svg" width="50" height="50"> <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/CSS.svg" width="50" height="50"> <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/JavaScript.svg" width="50" height="50"> <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/VSCode-Dark.svg" width="50" height="50">

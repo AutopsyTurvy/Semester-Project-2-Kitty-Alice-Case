@@ -15,47 +15,47 @@
     
     <title>Login</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
    
    <!-- index.html --login form, for those that already have an account -->
-   <div class="login-form-outer-container">
-    <div class="login-form-inner-container">
+   <!-- Login Form -->
+   <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-5 shadow-lg">
         <form id="loginForm">
-            <h1>Login</h1>
+            <h1 class="text-center">Login</h1>
 
-    
-            <div class="input-group">
-                <label class="input-label" for="email">Email:</label>
-                <input type="email" id="email" name="loginEmail" pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
-                       title="Only 'stud.noroff' or 'noroff.no' emails can register. Apologies for any inconvenience."
-                       required placeholder="Your email:">
+            <div class="mb-4">
+                <label class="form-label" for="email">Email</label> 
+                <input type="email" class="form-control" id="email" name="loginEmail" pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+                       title="Only 'stud.noroff' or 'noroff.no' emails can register."
+                       required placeholder="Your email">
             </div>
-            <div id="email-error" aria-live="polite"></div>
+            <div id="email-error" aria-live="polite" class="text-danger"></div>
 
-          
-            <div class="input-group">
-                <label class="input-label" for="password">Password:</label>
-                <input type="password" id="password" name="loginPassword" minlength="8" required
-                       placeholder="Your password:">
+            <div class="mb-4">
+                <label class="form-label" for="password">Password</label>  
+                <input type="password" class="form-control" id="password" name="loginPassword" minlength="8" required
+                       placeholder="Your password">
             </div>
-            <div id="password-error" aria-live="polite"></div>
+            <div id="password-error" aria-live="polite" class="text-danger"></div>
 
-         
-            <div class="login-button-positioning">
-                <button class="login-button-styles" id="loginButton" type="submit">Login</button>
-                <hr style="border: none; height: 2px; background-color: #E78C3B; width: 80%; margin: 20px auto;">
+            <div class="text-center mt-5">
+                <button class="btn btn-warning mb-4" id="loginButton" type="submit">Login</button>
+                <hr>
 
                 <p>Don't have an account? Create one!</p>
-                <button class="login-button-styles" id="registerButton" type="button"
+                <button class="btn btn-outline-primary" id="registerButton" type="button"
                         onclick="window.location.href='/pages/sign-up.html'">Sign Up
                 </button>
-
-
             </div>
         </form>
     </div>
 </div>
     
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
