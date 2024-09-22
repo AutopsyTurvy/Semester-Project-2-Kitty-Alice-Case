@@ -66,27 +66,37 @@ export async function fetchCompleteProfile() {
 // Register Function
 export async function register(name, email, password, avatarUrl, bannerUrl) {
     console.log("Attempting to register with:", { name, email, password, avatarUrl, bannerUrl });
+
+    const bodyData = {
+        name,
+        email,
+        password,
+    };
+
+    
+    if (avatarUrl) {
+        bodyData.avatar = { url: avatarUrl, alt: 'User avatar' };
+    }
+
+   
+    if (bannerUrl) {
+        bodyData.banner = { url: bannerUrl, alt: 'User banner' };
+    }
+
     
     const response = await fetch(`${API_BASE}${API_AUTH}${API_REGISTER}`, {
         headers: {
             "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({
-            name,
-            email,
-            password,
-            avatar: { url: avatarUrl },  
-            banner: { url: bannerUrl }
-        }),
+        body: JSON.stringify(bodyData),
     });
 
     if (response.ok) {
         const jsonResponse = await response.json();
         console.log("Registration successful:", jsonResponse);
 
-       
-        const updateResult = await updateUserCredits(jsonResponse.name, 1000); 
+        const updateResult = await updateUserCredits(jsonResponse.name, 1000);
 
         if (updateResult) {
             console.log("Credits successfully added to the API:", updateResult);
@@ -94,8 +104,7 @@ export async function register(name, email, password, avatarUrl, bannerUrl) {
             console.error("Failed to add credits to the API.");
         }
 
-      
-        const storedCredits = await fetchUserCredits(jsonResponse.name); 
+        const storedCredits = await fetchUserCredits(jsonResponse.name);
         if (storedCredits !== null) {
             console.log(`Credits successfully fetched from API for user ${jsonResponse.name}:`, storedCredits);
         } else {
@@ -109,6 +118,9 @@ export async function register(name, email, password, avatarUrl, bannerUrl) {
     console.error("Registration failed with response:", errorText);
     throw new Error("Failed to register account");
 }
+
+
+
 
 
 
@@ -153,7 +165,7 @@ export async function login(email, password) {
         const updatedProfile = {
             name,
             email,
-            avatar: avatar || 'https://default-avatar-url.com/avatar.jpg',
+            avatar: avatar || '/images/default-avatar.jpg',
             banner: banner || '/images/stacked-boxes.jpg',
             credits: storedCredits ?? credits  
         };
@@ -207,7 +219,7 @@ export async function onAuth(event) {
         const updatedProfile = {
             name,
             email,
-            avatar: { url: avatarUrl || 'https://default-avatar-url.com/avatar.jpg', alt: avatarAlt || "" },
+            avatar: { url: avatarUrl || '/images/default-avatar.jpg', alt: avatarAlt || "" },
             banner: { url: bannerUrl || '/images/stacked-boxes.jpg', alt: bannerAlt || "" },
             credits: 1000  
         };

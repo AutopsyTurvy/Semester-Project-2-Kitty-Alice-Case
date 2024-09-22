@@ -8,66 +8,66 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    
     <link rel="stylesheet" href="/styles/home-page-styles.css">
     <link rel="stylesheet" href="/styles/listings.css">
-
+    <link rel="stylesheet" href="/styles/hamburger-menu.css">
+    <link rel="stylesheet" href="/styles/dropdown-buttons.css">
 
     <script type="module" src="/js/login-and-register.js"></script>
     <script type="module" src="/js/credits.js"></script>
     <script type="module" src="/js/nav-buttons.js"></script>
     <script type="module" src="/js/all-listings.js"></script>
     <script type="module" src="/js/credit-count.js"></script>
-    
-    
+    <script type="module" src="/js/hamburger-menu.js"></script>
 
-    
     <title>Home Page</title>
 </head>
 <body>
 
-
     <header class="large-header-container">
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
-    
+
             <div class="input-group">
                 <label class="input-label" for="search"></label>
                 <input type="text" id="search" placeholder="Search for listings...">
                 <button type="submit" class="search-button" id="searchButton">Search</button>
             </div>
-    
-            <ul class="nav-buttons">
 
-                <button id="linkToHomeButton">Home</button>
-                
+  
+            <div class="hamburger-icon" id="hamburger-icon">
+                <i class="fas fa-bars"></i>
+            </div>
 
-                <button id="linkToProfileButton">Your Profile</button>
-
-
-                <button id="linkToAllProfilesButton">All Profiles</button>
-                
-
-                <button id="logoutButton">Logout</button>
-
-
-                <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
-
-
+         
+            <ul class="nav-buttons" id="nav-menu">
+                <li><button id="linkToHomeButton">Home</button></li>
+                <li><button id="linkToProfileButton">Your Profile</button></li>
+                <li><button id="linkToAllProfilesButton">All Profiles</button></li>
+                <li><button id="logoutButton">Logout</button></li>
+                <li><button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button></li>
             </ul>
         </nav>
-    
+
         <div class="header-title">
             <h1>Auction House</h1>
             <h2>The Best Spot for Buying and Selling!</h2>
         </div>
     </header>
 
+ 
 
 
 
 
 
+    <ul class="nav-dropdown" id="nav-dropdown-menu">
+        <li><button id="dropdownLinkToHomeButton">Home</button></li>
+        <li><button id="dropdownLinkToProfileButton">Your Profile</button></li>
+        <li><button id="dropdownLinkToAllProfilesButton">All Profiles</button></li>
+        <li><button id="dropdownLogoutButton">Logout</button></li>
+        <li><button id="dropdownNavCreditsButton">Your Credits: <span id="creditsDisplay"></span></button></li>
+    </ul>
 
 
 
@@ -78,18 +78,12 @@
     <h2>Browse Our Auctions:</h2>
     <button id="toggle-active-listings">Show Active Listings</button>
 
-
     <div id="image-container"></div>
 
-    
     <div id="button-container">
-      <button id="show-more" style="display:none;">Show More</button>
-      <button id="show-less" style="display:none;">Show Less</button>
-    </div>  
-
+        <button id="show-more" style="display:none;">Show More</button>
+        <button id="show-less" style="display:none;">Show Less</button>
+    </div>
 
 </body>
 </html>
-
-
-
