@@ -335,14 +335,22 @@ export function logout() {
 
 export function setLogoutListener() {
     const logoutButton = document.getElementById("logoutButton");
+    const dropdownLogoutButton = document.getElementById("dropdownLogoutButton");
 
+  
     if (logoutButton) {
         logoutButton.addEventListener("click", (event) => {
             logout();
         });
     }
-}
 
+
+    if (dropdownLogoutButton) {
+        dropdownLogoutButton.addEventListener("click", (event) => {
+            logout();
+        });
+    }
+}
 
 
 

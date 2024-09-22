@@ -142,6 +142,20 @@ cursor: pointer;
     height: 40px; 
 }
 
+
+@media (max-width: 768px) {
+   
+    .input-group {
+        display: flex;
+        align-items: center; 
+        margin-right: 10px; 
+        height: 40px; 
+
+    }
+
+
+}
+
 #search {
     padding: 0.5em;
     font-size: 1em;

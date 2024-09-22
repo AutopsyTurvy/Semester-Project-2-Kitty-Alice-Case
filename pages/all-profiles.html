@@ -12,9 +12,13 @@
     <link rel="stylesheet" href="/styles/home-page-styles.css">
     <link rel="stylesheet" href="/styles/listings.css">
     <link rel="stylesheet" href="/styles/all-profiles.css">
+    <link rel="stylesheet" href="/styles/hamburger-menu.css">
+    <link rel="stylesheet" href="/styles/dropdown-buttons.css">
 
     <script type="module" src="/js/nav-buttons.js"></script>
-    <script type="module" src="/js/login-and-register.js"></script>
+   
+    <script type="module" src="/js/hamburger-menu.js"></script>
+    <script type="module" src="/js/dropdown-buttons.js"></script>
     <script type="module" src="/js/all-profiles.js"></script>
     
     
@@ -29,29 +33,16 @@
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
-            <div class="input-group">
-                <label class="input-label" for="search"></label>
-                <input type="text" id="search" placeholder="Search for listings...">
-                <button type="submit" class="search-button" id="searchButton">Search</button>
+            <div class="hamburger-icon" id="hamburger-icon">
+                <i class="fas fa-bars"></i>
             </div>
     
             <ul class="nav-buttons">
-
                 <button id="linkToHomeButton">Home</button>
-                
-
                 <button id="linkToProfileButton">Your Profile</button>
-
-
                 <button id="linkToAllProfilesButton">All Profiles</button>
-                
-
                 <button id="logoutButton">Logout</button>
-
-
                 <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
-
-
             </ul>
         </nav>
     
@@ -60,6 +51,19 @@
             <h2>The Best Spot for Buying and Selling!</h2>
         </div>
     </header>
+
+    
+
+    <ul class="nav-dropdown" id="nav-dropdown-menu">
+        <li><button id="dropdownLinkToHomeButton">Home</button></li>
+        <li><button id="dropdownLinkToProfileButton">Your Profile</button></li>
+        <li><button id="dropdownLinkToAllProfilesButton">All Profiles</button></li>
+        <li><button id="dropdownLogoutButton">Logout</button></li>
+        <li><button id="dropdownNavCreditsButton">Your Credits: <span id="creditsDisplay"></span></button></li>
+    </ul>
+
+
+
 
     <h2>All User Profiles:</h2>
 
