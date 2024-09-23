@@ -1,7 +1,9 @@
-// 
-//
 
-// 
+
+
+
+
+
 // https://docs.noroff.dev/docs/v2/auction-house/listings#all-listings
 // https://v2.api.noroff.dev/
 
@@ -22,7 +24,7 @@ export const BIDS = '/<id>/bids';
 export const ALL_LISTINGS_URL = `${API_HOST_URL}${AUCTION}${API_LISTINGS_BASE}`;
 
 
-//  Bids 
+// ..................Bids...................
 
 //POST
 // /auction/listings/<id>/bids
@@ -36,9 +38,8 @@ export const BASE_BID_URL = (id) => `${API_HOST_URL}${AUCTION}${API_LISTINGS_BAS
 export const CREATE_LISTING = `${API_HOST_URL}${AUCTION}${API_LISTINGS_BASE}`;
 
 
-// ..........................................................Profiles..........................................................
-//.............................................................................................................................
-//.............................................................................................................................
+// ..................Profiles...................
+
 
 
 // /auction/profiles
