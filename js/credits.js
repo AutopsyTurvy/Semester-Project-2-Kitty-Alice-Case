@@ -11,8 +11,6 @@
 
 
 export async function updateUserCredits(username, credits) {
-    console.log(`Attempting to update credits for user: ${username} with ${credits} credits.`);  
-
     try {
         const response = await fetch(`${API_BASE}/auction/profiles/${username}/credits`, {
             method: "PUT",
@@ -30,14 +28,12 @@ export async function updateUserCredits(username, credits) {
         }
 
         const result = await response.json();
-        console.log("Credits updated successfully:", result);  
         return result; 
     } catch (error) {
         console.error("Error updating credits:", error);
         return null; 
     }
 }
-
 
 export async function fetchUserCredits(username) {
     try {
@@ -54,12 +50,9 @@ export async function fetchUserCredits(username) {
         }
 
         const result = await response.json();
-        console.log("Fetched credits from API:", result.data.credits);
         return result.data.credits;  
     } catch (error) {
         console.error("Error fetching credits:", error);
         return null;  
     }
 }
-
-
