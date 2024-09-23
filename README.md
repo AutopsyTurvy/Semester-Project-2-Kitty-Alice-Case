@@ -126,6 +126,7 @@ Ensure that the readme.md file describes your project thoroughly, including how 
     - Show items that a user has bid on, on their profile
     - Add "Show More" and "Show Less" buttons on the All Users page
     - Add a button in the profile page that takes you immediately down to the "Create Listing form"
+    - Loading Icons upon navigation
 
     
     
