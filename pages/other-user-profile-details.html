@@ -11,13 +11,17 @@
     
     <link rel="stylesheet" href="/styles/home-page-styles.css">
     <link rel="stylesheet" href="/styles/listings.css">
+    <link rel="stylesheet" href="/styles/all-profiles.css">
+    <link rel="stylesheet" href="/styles/hamburger-menu.css">
+    <link rel="stylesheet" href="/styles/dropdown-buttons.css">
 
-
-    <script type="module" src="/js/login-and-register.js"></script>
     <script type="module" src="/js/nav-buttons.js"></script>
-    <script type="module" src="/js/all-listings.js"></script>
+   
+    <script type="module" src="/js/hamburger-menu.js"></script>
+    <script type="module" src="/js/dropdown-buttons.js"></script>
+    <script type="module" src="/js/all-profiles.js"></script>
+    <script type="module" src="/js/credits.js"></script>
     <script type="module" src="/js/credit-count.js"></script>
-    <script type="module" src="/js/other-user-profile-details.js"></script>
     
     
 
@@ -31,17 +35,16 @@
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
-
-            <div class="hamburger-icon" id="hamburger-icon"></div>
+            <div class="hamburger-icon" id="hamburger-icon">
                 <i class="fas fa-bars"></i>
             </div>
     
-            <ul class="nav-buttons" id="nav-menu">
-                <li><button id="linkToHomeButton">Home</button></li>
-                <li><button id="linkToProfileButton">Your Profile</button></li>
-                <li><button id="linkToAllProfilesButton">All Profiles</button></li>
-                <li><button id="logoutButton">Logout</button></li>
-                <li><button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button></li>
+            <ul class="nav-buttons">
+                <button id="linkToHomeButton">Home</button>
+                <button id="linkToProfileButton">Your Profile</button>
+                <button id="linkToAllProfilesButton">All Profiles</button>
+                <button id="logoutButton">Logout</button>
+                <button id="navCreditsButton">Your Credits: <span id="creditsDisplay"></span></button>
             </ul>
         </nav>
     
