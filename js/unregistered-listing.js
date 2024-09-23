@@ -30,7 +30,6 @@ function filterListings(allListings, showActiveOnly) {
 fetch(ALL_LISTINGS_URL)
     .then(response => response.json())
     .then(data => {
-        console.log('API Response for All Listings:', data); 
         allListings = data.data || data; 
         filteredListings = allListings; 
         displayUnregisteredListings();
@@ -49,7 +48,6 @@ document.getElementById("unregistered-toggle-active-listings").addEventListener(
     filteredListings = filterListings(allListings, showActiveOnly); 
     clearListings();
     displayUnregisteredListings();
-    
     
     if (!showActiveOnly) {
         window.location.reload();
@@ -78,7 +76,6 @@ document.getElementById('unregistered-search').addEventListener('input', (event)
 
 function handleSearch(searchQuery) {
     searchQuery = searchQuery || document.getElementById('unregistered-search').value.trim();
-    console.log('Search query:', searchQuery);
 
     if (searchQuery) {
         searchListings(searchQuery); 
@@ -91,20 +88,12 @@ function handleSearch(searchQuery) {
 }
 
 function searchListings(query) {
-    console.log('Search Query:', query);
-
     filteredListings = allListings.filter(listing => {
-        console.log('Evaluating Listing:', listing.title);
-
         const titleMatch = listing.title && listing.title.toLowerCase().includes(query.toLowerCase());
         const tagsMatch = listing.tags && listing.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
 
-        console.log(`Title: ${listing.title}, Title Match: ${titleMatch}, Tags Match: ${tagsMatch}`);
-
         return titleMatch || tagsMatch;
     });
-
-    console.log('Filtered Listings After Search (by Title or Tags):', filteredListings);
 
     clearListings();
     displayUnregisteredListings();
@@ -167,7 +156,6 @@ function displayUnregisteredListings() {
 function clearListings() {
     const container = document.getElementById("unregistered-image-container");
     container.innerHTML = '';
-    console.log('Listings cleared for Unregistered Users');
 }
 
 function toggleButtons() {
