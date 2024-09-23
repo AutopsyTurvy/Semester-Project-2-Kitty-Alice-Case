@@ -6,7 +6,6 @@
 // login-and-register.js
 
 
-
 import { fetchUserCredits, updateUserCredits } from './credits.js'; 
 
 export const API_BASE = "https://v2.api.noroff.dev";
@@ -42,8 +41,6 @@ export async function fetchCompleteProfile() {
 
         if (response.ok) {
             const profileData = await response.json();
-            console.log('Complete Profile Data:', profileData);
-
             save('Profile', profileData); 
             return profileData;
         } else {
@@ -55,35 +52,21 @@ export async function fetchCompleteProfile() {
     }
 }
 
-
-
-
-
-
-
-
-
-// Register Function
 export async function register(name, email, password, avatarUrl, bannerUrl) {
-    console.log("Attempting to register with:", { name, email, password, avatarUrl, bannerUrl });
-
     const bodyData = {
         name,
         email,
         password,
     };
 
-    
     if (avatarUrl) {
         bodyData.avatar = { url: avatarUrl, alt: 'User avatar' };
     }
 
-   
     if (bannerUrl) {
         bodyData.banner = { url: bannerUrl, alt: 'User banner' };
     }
 
-    
     const response = await fetch(`${API_BASE}${API_AUTH}${API_REGISTER}`, {
         headers: {
             "Content-Type": "application/json",
@@ -94,20 +77,15 @@ export async function register(name, email, password, avatarUrl, bannerUrl) {
 
     if (response.ok) {
         const jsonResponse = await response.json();
-        console.log("Registration successful:", jsonResponse);
 
         const updateResult = await updateUserCredits(jsonResponse.name, 1000);
 
-        if (updateResult) {
-            console.log("Credits successfully added to the API:", updateResult);
-        } else {
+        if (!updateResult) {
             console.error("Failed to add credits to the API.");
         }
 
         const storedCredits = await fetchUserCredits(jsonResponse.name);
-        if (storedCredits !== null) {
-            console.log(`Credits successfully fetched from API for user ${jsonResponse.name}:`, storedCredits);
-        } else {
+        if (storedCredits === null) {
             console.error(`Failed to fetch credits for user ${jsonResponse.name}.`);
         }
 
@@ -119,21 +97,7 @@ export async function register(name, email, password, avatarUrl, bannerUrl) {
     throw new Error("Failed to register account");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-// Login function
 export async function login(email, password) {
-    console.log("Attempting to log in with:", { email, password });
-
     const response = await fetch(`${API_BASE}${API_AUTH}${API_LOGIN}`, {
         headers: {
             "Content-Type": "application/json",
@@ -146,19 +110,12 @@ export async function login(email, password) {
         const responseData = await response.json();
         const { accessToken, name, email, avatar, banner, credits } = responseData.data;
 
-        console.log("Login successful, received profile:", responseData.data);
-        
         save("Token", accessToken);
 
         const completeProfile = await fetchCompleteProfile();
-        console.log("Complete profile after login:", completeProfile);
 
-       
-        console.log(`Fetching credits for user ${name}...`);  
         const storedCredits = await fetchUserCredits(name);
-        if (storedCredits !== null) {
-            console.log(`Credits successfully fetched for user ${name}:`, storedCredits);
-        } else {
+        if (storedCredits === null) {
             console.error(`Failed to fetch credits for user ${name}.`);
         }
 
@@ -170,8 +127,6 @@ export async function login(email, password) {
             credits: storedCredits ?? credits  
         };
 
-        console.log("Updated profile after login:", updatedProfile);
-
         save("Profile", updatedProfile);
 
         return updatedProfile;
@@ -182,19 +137,6 @@ export async function login(email, password) {
     throw new Error("Failed to login");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Handles Registration Event
 export async function onAuth(event) {
     event.preventDefault();
     
@@ -207,14 +149,10 @@ export async function onAuth(event) {
     const bannerUrl = form.elements['banner']?.value;  
     const bannerAlt = form.elements['bannerAlt']?.value;
 
-    console.log("Form data:", { name, email, avatarUrl, bannerUrl, avatarAlt, bannerAlt });
-
     try {
         await register(name, email, password, avatarUrl, bannerUrl);
-        console.log("User successfully registered.");
         
         const profile = await login(email, password);
-        console.log("User logged in, updating profile with avatar, banner, and credits.");
 
         const updatedProfile = {
             name,
@@ -224,18 +162,12 @@ export async function onAuth(event) {
             credits: 1000  
         };
 
-        console.log("Updated profile with initial credits, avatar, and banner:", updatedProfile);
-
         save("Profile", updatedProfile);  
 
         if (!load("ApiKey")) {
-            console.log("No API key found, attempting to fetch API key...");
             await getApiKey(); 
-        } else {
-            console.log("API key already exists.");
         }
 
-        console.log("Redirecting to profile page.");
         window.location.href = "/pages/profile.html";
     } catch (error) {
         console.error("Error during registration or login:", error);
@@ -243,40 +175,14 @@ export async function onAuth(event) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-// Set listeners for registration form
 export function setAuthListeners() {
     const registerForm = document.getElementById("registerForm");
 
     if (registerForm) {
         registerForm.addEventListener("submit", onAuth);
-        console.log("Auth listeners set.");
-    } else {
-        console.warn("Registration form was not found.");
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-// Set listeners for login form
 export async function onLogin(event) {
     event.preventDefault(); 
 
@@ -286,13 +192,9 @@ export async function onLogin(event) {
 
     try {
         const profile = await login(email, password);
-        console.log("User logged in successfully:", profile);
 
         if (!load("ApiKey")) {
-            console.log("No API key found, attempting to fetch API key...");
             await getApiKey();  
-        } else {
-            console.log("API key already exists.");
         }
 
         window.location.href = "/pages/home.html";
@@ -302,30 +204,15 @@ export async function onLogin(event) {
     }
 }
 
-
-// Set listeners for login form
 export function setLoginListeners() {
     const loginForm = document.getElementById("loginForm");
 
     if (loginForm) {
         loginForm.addEventListener("submit", onLogin); 
-        console.log("Login listeners set.");
-    } else {
-        console.warn("Login form was not found.");
     }
 }
 
-
-
-
-
-
-
-
-// Log out Function
 export function logout() {
-    console.log("Logging out...");
-
     localStorage.removeItem("Token");  
     localStorage.removeItem("ApiKey"); 
     localStorage.removeItem("Profile");  
@@ -337,34 +224,21 @@ export function setLogoutListener() {
     const logoutButton = document.getElementById("logoutButton");
     const dropdownLogoutButton = document.getElementById("dropdownLogoutButton");
 
-  
     if (logoutButton) {
-        logoutButton.addEventListener("click", (event) => {
+        logoutButton.addEventListener("click", () => {
             logout();
         });
     }
 
-
     if (dropdownLogoutButton) {
-        dropdownLogoutButton.addEventListener("click", (event) => {
+        dropdownLogoutButton.addEventListener("click", () => {
             logout();
         });
     }
 }
 
-
-
-
-
-
-
-
-
-
-// Get the API Key
 export async function getApiKey() {
     try {
-        console.log("Attempting to fetch API key.");
         const response = await fetch(`${API_BASE}${API_AUTH}${API_KEY_URL}`, {
             method: "POST",
             headers: {
@@ -376,7 +250,6 @@ export async function getApiKey() {
 
         if (response.ok) {
             const apiKeyData = await response.json();
-            console.log("API key fetched successfully:", apiKeyData);
             save("ApiKey", apiKeyData.data.key);
             return apiKeyData;
         }
@@ -397,7 +270,6 @@ export async function fetchWithApiKey(url) {
         throw new Error("Missing Token or API Key");
     }
 
-    console.log("Fetching data from:", url);
     const options = {
         method: "GET",
         headers: {
@@ -416,7 +288,6 @@ export async function fetchWithApiKey(url) {
     }
 
     const data = await response.json();
-    console.log("Data fetched successfully:", data);
     return data;
 }
 
@@ -431,4 +302,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setLogoutListener(); 
 });
-
