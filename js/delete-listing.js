@@ -12,10 +12,6 @@ export async function deleteListing(listingId) {
     const yourAPIToken = load('Token'); 
     const apiKey = load('ApiKey'); 
 
-  
-    console.log('Token before deleting listing:', yourAPIToken);
-    console.log('API key before deleting listing:', apiKey);
-
     if (!yourAPIToken) {
         alert('Authorization token not found. Rectify by logging in again.');
         return;
