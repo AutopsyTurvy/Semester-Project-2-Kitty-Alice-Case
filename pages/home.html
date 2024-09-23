@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/styles/listings.css">
     <link rel="stylesheet" href="/styles/hamburger-menu.css">
     <link rel="stylesheet" href="/styles/dropdown-buttons.css">
-    <link rel="stylesheet" href="/styles/screen-read-elements.css">
 
     <script type="module" src="/js/login-and-register.js"></script>
     <script type="module" src="/js/credits.js"></script>
@@ -30,10 +29,13 @@
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
 
-            <div class="input-group" id="nav-search-bar">
+
+
+
+            <div class="input-group">
                 <label class="sr-only" for="unregistered-search">Search Listings</label>
-                <input type="text" id="unregistered-search" placeholder="Search for listings...">
-                <button type="submit" class="search-button" id="unregistered-searchButton">Search</button>
+                <input type="text" id="search" placeholder="Search for listings...">
+                <button type="submit" class="search-button" id="searchButton">Search</button>
             </div>
 
   
@@ -68,6 +70,7 @@
         <li><button id="dropdownLinkToProfileButton">Your Profile</button></li>
         <li><button id="dropdownLinkToAllProfilesButton">All Profiles</button></li>
         <li><button id="dropdownLogoutButton">Logout</button></li>
+
     </ul>
 
 
