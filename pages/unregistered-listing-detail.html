@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="/styles/home-page-styles.css">
     <link rel="stylesheet" href="/styles/listings.css">
     <link rel="stylesheet" href="/styles/index-styles.css">
+    <link rel="stylesheet" href="/styles/listing-details.css">
     <link rel="stylesheet" href="/styles/unregistered-styles.css">
 
 
    
     <script type="module" src="/js/nav-buttons.js" defer></script>
-
     <script type="module" src="/js/unregistered-listing-details.js" defer></script>
     
 
@@ -33,11 +33,6 @@
         <nav class="nav-bar">
             <img src="/images/logo.png" alt="The auction house logo" class="header-logo">
     
-            <div class="input-group" id="nav-search-bar">
-                <label class="input-label" for="search"></label>
-                <input type="text" id="search" placeholder="Search for listings...">
-                <button type="submit" class="search-button" id="searchButton">Search</button>
-            </div>
     
             <ul class="nav-buttons">
                 <button id="loginButton">Log In</button>
@@ -76,13 +71,12 @@
                 <div class="high-bidder"></div>
                 <div class="high-bid-amount"></div>
 
-                
+                <div class="listing-ends-at"></div>
+
                 <p> To make a bid, or see bids from other users, please register an account!</p>
 
 
-
-
-                <div class="listing-ends-at"></div>
+                <button id="go-back-home">Home</button>
             </div>
         </div>
     </div>

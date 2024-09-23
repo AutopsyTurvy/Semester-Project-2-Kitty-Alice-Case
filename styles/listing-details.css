@@ -3,12 +3,13 @@
 
 
 
+
 .page-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;  
-    padding: 2em; 
+    min-height: 100vh;
+    padding: 2em;
 }
 
 .listing-container {
@@ -32,12 +33,12 @@
 }
 
 .listing-image {
-    width: 100%; 
-    max-width: 300px; 
-    height: auto; 
-    aspect-ratio: 1 / 1; 
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 50%; 
+    border-radius: 50%;
     border: 2px solid #E78C3B;
 }
 
@@ -54,20 +55,20 @@
     text-decoration: underline;
 }
 
+.seller-info,
+.listing-description,
+.listing-price {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
 .seller-info {
     font-size: 18px;
     margin-bottom: 2em;
 }
 
-.listing-description {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
 .listing-price {
-    font-size: 18px;
     color: #E78C3B;
-    margin-bottom: 10px;
 }
 
 .bids-info {
@@ -76,13 +77,18 @@
 }
 
 
-.bid-form {
+.bid-form,
+.bidding-history-section {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.bid-input {
+.bid-input,
+.toggle-bid-history-button,
+.bid-button {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -90,53 +96,20 @@
     width: 100%;
 }
 
-.bid-button {
-    padding: 10px 20px;
-    background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
-    background-color: #D97217;
-    color: black;
-    font-size: 16px;
-    border: 1px solid #E78C3B;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    align-self: center;
-}
-
-.bid-button:hover {
-    background-color: #D97217;
-    background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
-}
-
-
-
-
-
-.bidding-history-section {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
+.bid-button,
 .toggle-bid-history-button {
-    padding: 10px 20px;
     background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
-    background-color: #D97217;
     color: black;
-    font-size: 16px;
     border: 1px solid #E78C3B;
-    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     align-self: center;
-    margin-bottom: 10px;
 }
 
+.bid-button:hover,
 .toggle-bid-history-button:hover {
     background-color: #D97217;
-    background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 }
-
-
 
 .bids-info-container {
     border: 1px solid #ddd;
@@ -148,15 +121,9 @@
     white-space: pre-wrap;
 }
 
-
-
 .listing-ends-at {
     padding-bottom: 1em;
 }
-
-
-
-
 
 
 @media (max-width: 768px) {
@@ -171,14 +138,22 @@
     }
 
     .listing-image {
-        max-width: 200px; 
-        height: 200px; 
+        max-width: 200px;
+        height: 200px;
     }
 }
 
 
+.unregistered-message {
+    text-align: center;
+    font-size: 16px;
+    color: #E78C3B;
+    font-weight: bold;
+}
 
 
+
+/* delete buttons (Only visible when a user has created the listing)*/
 
 .delete-listing-button {
     padding: 10px 20px;

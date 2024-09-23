@@ -8,34 +8,107 @@
 // unregistered-user-listings.js
 
 
-
 import { ALL_LISTINGS_URL } from './constants.js';
 
 let currentIndex = 0;
 const listingsPerPage = 10;
 let allListings = [];
 let filteredListings = [];
+let showActiveOnly = false;
 
+function filterListings(allListings, showActiveOnly) {
+    const currentTime = new Date().getTime();
 
-function fetchListings() {
-    fetch(ALL_LISTINGS_URL)
-        .then(response => response.json())
-        .then(data => {
-            console.log('API Response for All Listings:', data);
-            allListings = data.data || data;
-            filteredListings = allListings;
-            displayUnregisteredListings();
-
-            if (allListings.length > listingsPerPage) {
-                const showMoreBtn = document.getElementById("show-more");
-                if (showMoreBtn) {
-                    showMoreBtn.style.display = "block";
-                }
-            }
+    return showActiveOnly
+        ? allListings.filter(listing => {
+            const timeRemaining = new Date(listing.endsAt).getTime() - currentTime;
+            return timeRemaining > 0; 
         })
-        .catch(error => {
-            console.error('Error fetching the API', error);
-        });
+        : allListings;
+}
+
+fetch(ALL_LISTINGS_URL)
+    .then(response => response.json())
+    .then(data => {
+        console.log('API Response for All Listings:', data); 
+        allListings = data.data || data; 
+        filteredListings = allListings; 
+        displayUnregisteredListings();
+
+        if (allListings.length > listingsPerPage) {
+            document.getElementById("show-more").style.display = "block";
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching the API', error);
+    });
+
+
+document.getElementById("unregistered-toggle-active-listings").addEventListener("click", () => {
+    showActiveOnly = !showActiveOnly; 
+    filteredListings = filterListings(allListings, showActiveOnly); 
+    clearListings();
+    displayUnregisteredListings();
+    
+    
+    if (!showActiveOnly) {
+        window.location.reload();
+    }
+
+    document.getElementById("unregistered-toggle-active-listings").textContent = showActiveOnly ? "Show All Listings" : "Show Active Listings";
+});
+
+
+document.getElementById('unregistered-searchButton').addEventListener('click', (event) => {
+    event.preventDefault();
+    handleSearch();
+});
+
+document.getElementById('unregistered-search').addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        handleSearch();
+    }
+});
+
+document.getElementById('unregistered-search').addEventListener('input', (event) => {
+    const searchTerm = event.target.value.trim();
+    handleSearch(searchTerm);
+});
+
+function handleSearch(searchQuery) {
+    searchQuery = searchQuery || document.getElementById('unregistered-search').value.trim();
+    console.log('Search query:', searchQuery);
+
+    if (searchQuery) {
+        searchListings(searchQuery); 
+    } else {
+        filteredListings = filterListings(allListings, showActiveOnly); 
+        clearListings();
+        displayUnregisteredListings();
+        toggleButtons();
+    }
+}
+
+function searchListings(query) {
+    console.log('Search Query:', query);
+
+    filteredListings = allListings.filter(listing => {
+        console.log('Evaluating Listing:', listing.title);
+
+        const titleMatch = listing.title && listing.title.toLowerCase().includes(query.toLowerCase());
+        const tagsMatch = listing.tags && listing.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
+
+        console.log(`Title: ${listing.title}, Title Match: ${titleMatch}, Tags Match: ${tagsMatch}`);
+
+        return titleMatch || tagsMatch;
+    });
+
+    console.log('Filtered Listings After Search (by Title or Tags):', filteredListings);
+
+    clearListings();
+    displayUnregisteredListings();
+    toggleButtons();
 }
 
 function displayUnregisteredListings() {
@@ -78,7 +151,6 @@ function displayUnregisteredListings() {
         viewButton.textContent = "View";
         viewButton.classList.add("unregistered-listing-button");
         viewButton.addEventListener("click", () => {
-            console.log(`Navigating to /pages/unregistered-listing-detail.html?id=${listing.id}`);
             window.location.href = `/pages/unregistered-listing-detail.html?id=${listing.id}`;
         });
 
@@ -102,32 +174,25 @@ function toggleButtons() {
     const showMoreBtn = document.getElementById("show-more");
     const showLessBtn = document.getElementById("show-less");
 
-    if (currentIndex < filteredListings.length && showMoreBtn) {
+    if (currentIndex < filteredListings.length) {
         showMoreBtn.style.display = "block";
-    } else if (showMoreBtn) {
+    } else {
         showMoreBtn.style.display = "none";
     }
 
-    if (currentIndex > listingsPerPage && showLessBtn) {
+    if (currentIndex > listingsPerPage) {
         showLessBtn.style.display = "block";
-    } else if (showLessBtn) {
+    } else {
         showLessBtn.style.display = "none";
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetchListings();
+document.getElementById("show-more").addEventListener("click", () => {
+    displayUnregisteredListings(); 
+});
 
-    const showMoreBtn = document.getElementById("show-more");
-    const showLessBtn = document.getElementById("show-less");
-
-    if (showMoreBtn) {
-        showMoreBtn.addEventListener("click", displayUnregisteredListings);
-    }
-
-    if (showLessBtn) {
-        showLessBtn.addEventListener("click", hideListings);
-    }
+document.getElementById("show-less").addEventListener("click", () => {
+    hideListings();
 });
 
 function hideListings() {
@@ -142,3 +207,5 @@ function hideListings() {
     currentIndex = Math.max(currentIndex - listingsPerPage, listingsPerPage);
     toggleButtons();
 }
+
+document.addEventListener('DOMContentLoaded', fetchListings);

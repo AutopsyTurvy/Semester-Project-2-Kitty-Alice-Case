@@ -5,16 +5,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -62,7 +52,14 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/pages/all-profiles.html'; 
         });
     }
-
-
-
 });
+
+
+// Go home button on unregistered user listing details page:
+
+const goHomeButton = document.getElementById('go-back-home');
+if (goHomeButton) {
+    goHomeButton.addEventListener('click', function() {
+        window.location.href = '/index.html'; 
+    });
+}

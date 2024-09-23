@@ -8,7 +8,7 @@ h2 {
     text-align: center;
 }
 
-#toggle-active-listings {
+#toggle-active-listings, #unregistered-toggle-active-listings {
     padding: 10px 20px;
     background-color: #E78C3B;
     border: 1px solid #E78C3B;
@@ -23,7 +23,7 @@ h2 {
     margin-left: 3em;
 }
 
-#toggle-active-listings:hover {
+#toggle-active-listings:hover, #unregistered-toggle-active-listings:hover {
     background-color: #D97217;
     background: linear-gradient(to top, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);
 }
