@@ -19,10 +19,10 @@ let allListings = [];
 let filteredListings = [];
 let showActiveOnly = false; 
 
+
 function filterListings(allListings, showActiveOnly) {
     const currentTime = new Date().getTime(); 
 
-  
     return showActiveOnly
         ? allListings.filter(listing => {
             const timeRemaining = new Date(listing.endsAt).getTime() - currentTime;
@@ -51,30 +51,13 @@ fetch(ALL_LISTINGS_URL)
 
 document.getElementById("toggle-active-listings").addEventListener("click", () => {
     showActiveOnly = !showActiveOnly; 
-
-    if (!showActiveOnly) {
-       
-        fetch(ALL_LISTINGS_URL)
-            .then(response => response.json())
-            .then(data => {
-                allListings = data.data || data;
-                filteredListings = allListings;
-                clearListings();
-                displayListings();
-                toggleButtons();
-                document.getElementById("toggle-active-listings").textContent = "Show Active Listings";
-            })
-            .catch(error => {
-                console.error('Error fetching the API', error);
-            });
-    } else {
-        filteredListings = filterListings(allListings, showActiveOnly); 
-        clearListings();
-        displayListings();
-        toggleButtons();
-        document.getElementById("toggle-active-listings").textContent = "Show All Listings";
-    }
+    filteredListings = filterListings(allListings, showActiveOnly); 
+    clearListings();
+    displayListings();
+    toggleButtons();
+    document.getElementById("toggle-active-listings").textContent = showActiveOnly ? "Show All Listings" : "Show Active Listings";
 });
+
 
 document.getElementById('searchButton').addEventListener('click', (event) => {
     event.preventDefault();
@@ -92,6 +75,7 @@ document.getElementById('search').addEventListener('input', (event) => {
     const searchTerm = event.target.value.trim();
     handleSearch(searchTerm);
 });
+
 
 function handleSearch(searchQuery) {
     searchQuery = searchQuery || document.getElementById('search').value.trim();
@@ -127,6 +111,7 @@ function searchListings(query) {
     displayListings();
     toggleButtons();
 }
+
 
 function displayListings() {
     const container = document.getElementById("image-container");
@@ -185,11 +170,12 @@ function displayListings() {
     toggleButtons();
 }
 
+
 function clearListings() {
     const container = document.getElementById("image-container");
     container.innerHTML = '';
-    console.log('Listings cleared');
 }
+
 
 function toggleButtons() {
     const showMoreBtn = document.getElementById("show-more");
@@ -208,6 +194,7 @@ function toggleButtons() {
     }
 }
 
+
 document.getElementById("show-more").addEventListener("click", () => {
     displayListings();
 });
@@ -215,6 +202,7 @@ document.getElementById("show-more").addEventListener("click", () => {
 document.getElementById("show-less").addEventListener("click", () => {
     hideListings();
 });
+
 
 function hideListings() {
     const container = document.getElementById("image-container");

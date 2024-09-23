@@ -19,10 +19,11 @@
     <script type="module" src="/js/nav-buttons.js" defer></script>
     <script type="module" src="/js/unregistered-listing.js" defer></script>
     <script type="module" src="/js/unregistered-listing-details.js" defer></script>
+    
 
     
     <title>Welcome! Browse our site!</title>
-
+  
 </head>
 <body>
 
@@ -38,15 +39,8 @@
             </div>
     
             <ul class="nav-buttons">
-
-
                 <button id="loginButton">Log In</button>
-
-
                 <button id="registerButton">Register</button>
-
-
-
             </ul>
         </nav>
     
@@ -57,28 +51,43 @@
     </header>
 
 
-    <section>
-        <h2>Browse Our Auctions:</h2>
-        <button id="toggle-active-listings">Show Active Listings</button>
 
 
 
 
+
+
+    <div class="page-wrapper">
+        <div class="listing-container">
+            <div class="listing-image-container">
+                <img class="listing-image" alt="Listing Image">
+            </div>
     
-        <div id="unregistered-image-container"></div>
-        
-    
-        <div id="button-container">
-          <button id="show-more" style="display:none;">Show More</button>
-          <button id="show-less" style="display:none;">Show Less</button>
+            <div class="listing-details">
+                <h2 class="listing-title"></h2>
+                
+                <div class="seller-info"></div>
+                
+                <div class="listing-section-label"><strong>Description:</strong></div>
+                <div class="listing-description"></div>
+                
+                <div class="listing-price"></div>
+                <div class="high-bidder"></div>
+                <div class="high-bid-amount"></div>
+
+                
+                <p> To make a bid, or see bids from other users, please register an account!</p>
+
+
+
+
+                <div class="listing-ends-at"></div>
+            </div>
         </div>
-    </section>
+    </div>
 
 
 
- 
 </body>
 </html>
-
-
 
