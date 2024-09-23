@@ -25,10 +25,8 @@ export async function authorizedFetch(url, options = {}) {
 
     token = token.replace(/^"|"$/g, '');
 
-    console.log("Token from localStorage:", token);
     if (token) {
         const decodedToken = parseJwt(token);
-        console.log("Decoded Token:", decodedToken);  
     } else {
         console.error("No token found in localStorage. Please log in again.");
         throw new Error("No token found in localStorage.");
@@ -66,8 +64,6 @@ async function createApiKey() {
     let token = load('Token');
     
     token = token.replace(/^"|"$/g, '');
-    
-    console.log("Creating API key with token:", token);
 
     const response = await fetch(`${API_BASE}/auth/create-api-key`, {
         method: 'POST',
@@ -82,7 +78,6 @@ async function createApiKey() {
 
     if (response.status === 201) {
         const data = await response.json();
-        console.log("API key created successfully:", data.data.key);
         save('ApiKey', data.data.key);
         return data.data.key;
     } else {
@@ -117,7 +112,6 @@ export async function placeBid(listingId, bidAmount) {
         }
 
         if (!apiKey) {
-            console.log("API key missing, attempting to create one...");
             apiKey = await createApiKey();
         }
 
@@ -147,7 +141,6 @@ export async function placeBid(listingId, bidAmount) {
         }
 
         const data = await response.json();
-        console.log("Bid placed successfully:", data);
 
         const profile = load('Profile');
         const updatedCredits = await fetchUserCredits(profile.name);
@@ -156,8 +149,6 @@ export async function placeBid(listingId, bidAmount) {
             ...profile,  
             credits: updatedCredits !== undefined ? updatedCredits : profile.credits  
         };
-
-        console.log("Updated profile after bid:", updatedProfile);
 
         save('Profile', updatedProfile);
         updateNavCredits();
@@ -189,7 +180,6 @@ async function handleAuctionEnd(listingId) {
             }
         }
 
-        console.log('Auction end handled successfully');
     } catch (error) {
         console.error('Error handling auction end:', error);
     }
@@ -213,7 +203,6 @@ async function refundUser(userId, amount) {
             body: JSON.stringify({ credits: updatedCredits })
         });
 
-        console.log(`Refunded ${amount} credits to user ${userId}`);
     } catch (error) {
         console.error('Error refunding credits:', error);
     }
@@ -223,7 +212,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const bidButton = document.querySelector('.bid-button');
 
     if (!bidButton) {
-        console.log('Bid button not found on this page. Skipping bid functionality.');
         return;
     }
 
@@ -261,8 +249,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const currentHighBidElement = document.querySelector('.high-bid-amount');
         const currentHighBid = currentHighBidElement ? parseInt(currentHighBidElement.textContent.replace(/\D/g, '')) : 0;
 
-        console.log(`Bid Amount: ${bidAmount}, Current High Bid: ${currentHighBid}`);
-
         if (bidAmount <= currentHighBid) {
             alert('Your bid needs to be higher than the current highest bid.');
             return;
@@ -284,7 +270,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const bidResponse = await placeBid(listingId, bidAmount);
             alert('Bid placed successfully!');
-            console.log('Bid response:', bidResponse);
             location.reload(); 
         } catch (error) {
             alert('There was an error placing your bid.');
