@@ -116,7 +116,6 @@ Ensure that the readme.md file describes your project thoroughly, including how 
     Yet to do/ wish to add:
     
     - (Priority) Decipher why the credits are stripped after logging out and in again
-    - (Priority) Edit so that only a registered user can bid on an item 
     
 
     - Modal view of each listing
