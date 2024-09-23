@@ -96,6 +96,11 @@
     width: 100%;
 }
 
+
+.bid-input {
+    width: 96%;
+}
+
 .bid-button,
 .toggle-bid-history-button {
     background: linear-gradient(to bottom, #FFE4CC 0%, #E78C3B 50%, #D97217 100%);

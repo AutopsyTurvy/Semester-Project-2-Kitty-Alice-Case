@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/styles/listing-details.css">
     <link rel="stylesheet" href="/styles/hamburger-menu.css">
     <link rel="stylesheet" href="/styles/dropdown-buttons.css">
-
+    <link rel="stylesheet" href="/styles/screen-read-elements.css">
 
     
     <script type="module" src="/js/nav-buttons.js"></script>
@@ -95,7 +95,7 @@
             </div>
     
             <div class="listing-details">
-                <h2 class="listing-title"></h2><i class="fa-solid fa-pencil edit-title"></i>
+                <h3 class="listing-title"></h3><i class="fa-solid fa-pencil edit-title"></i>
                 
                 <div class="seller-info"></div>
                 
@@ -119,7 +119,8 @@
                 <div class="listing-ends-at"></div>
     
                 <div class="bid-form">
-                    <input type="number" class="bid-input" placeholder="Enter your bid">
+                    <label for="bid-input" class="sr-only">Enter your bid</label> 
+                    <input type="number" id="bid-input" class="bid-input" placeholder="Enter your bid">
                     <button class="bid-button">Place Bid</button>
                 </div>
 
