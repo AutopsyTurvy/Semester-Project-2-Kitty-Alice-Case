@@ -11,33 +11,32 @@
 
 // all-listings.js
 
+// all-listings.js
+
 import { ALL_LISTINGS_URL } from './constants.js';
 
 let currentIndex = 0;
 const listingsPerPage = 10;
 let allListings = [];
 let filteredListings = [];
-let showActiveOnly = false; 
-
+let showActiveOnly = false;
 
 function filterListings(allListings, showActiveOnly) {
-    const currentTime = new Date().getTime(); 
+    const currentTime = new Date().getTime();
 
     return showActiveOnly
         ? allListings.filter(listing => {
             const timeRemaining = new Date(listing.endsAt).getTime() - currentTime;
-            return timeRemaining > 0; 
+            return timeRemaining > 0;
         })
         : allListings;
 }
 
-
 fetch(ALL_LISTINGS_URL)
   .then(response => response.json())
   .then(data => {
-    console.log('API Response for All Listings:', data); 
-    allListings = data.data || data; 
-    filteredListings = allListings; 
+    allListings = data.data || data;
+    filteredListings = allListings;
     displayListings();
 
     if (allListings.length > listingsPerPage) {
@@ -48,16 +47,14 @@ fetch(ALL_LISTINGS_URL)
     console.error('Error fetching the API', error);
   });
 
-
 document.getElementById("toggle-active-listings").addEventListener("click", () => {
-    showActiveOnly = !showActiveOnly; 
-    filteredListings = filterListings(allListings, showActiveOnly); 
+    showActiveOnly = !showActiveOnly;
+    filteredListings = filterListings(allListings, showActiveOnly);
     clearListings();
     displayListings();
     toggleButtons();
     document.getElementById("toggle-active-listings").textContent = showActiveOnly ? "Show All Listings" : "Show Active Listings";
 });
-
 
 document.getElementById('searchButton').addEventListener('click', (event) => {
     event.preventDefault();
@@ -76,15 +73,13 @@ document.getElementById('search').addEventListener('input', (event) => {
     handleSearch(searchTerm);
 });
 
-
 function handleSearch(searchQuery) {
     searchQuery = searchQuery || document.getElementById('search').value.trim();
-    console.log('Search query:', searchQuery);
 
     if (searchQuery) {
-        searchListings(searchQuery); 
+        searchListings(searchQuery);
     } else {
-        filteredListings = filterListings(allListings, showActiveOnly); 
+        filteredListings = filterListings(allListings, showActiveOnly);
         clearListings();
         displayListings();
         toggleButtons();
@@ -92,38 +87,24 @@ function handleSearch(searchQuery) {
 }
 
 function searchListings(query) {
-    console.log('Search Query:', query);
-
     filteredListings = allListings.filter(listing => {
-        console.log('Evaluating Listing:', listing.title);
-
         const titleMatch = listing.title && listing.title.toLowerCase().includes(query.toLowerCase());
         const tagsMatch = listing.tags && listing.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
-
-        console.log(`Title: ${listing.title}, Title Match: ${titleMatch}, Tags Match: ${tagsMatch}`);
-
         return titleMatch || tagsMatch;
     });
-
-    console.log('Filtered Listings After Search (by Title or Tags):', filteredListings);
 
     clearListings();
     displayListings();
     toggleButtons();
 }
 
-
 function displayListings() {
     const container = document.getElementById("image-container");
     const end = Math.min(currentIndex + listingsPerPage, filteredListings.length);
 
-    console.log('Displaying Listings:', filteredListings);
-
     for (let i = currentIndex; i < end; i++) {
         const listing = filteredListings[i];
         if (!listing) continue;
-
-        console.log('Rendering listing:', listing.title);
 
         const listingContainer = document.createElement("div");
         listingContainer.classList.add("listing-container");
@@ -170,12 +151,10 @@ function displayListings() {
     toggleButtons();
 }
 
-
 function clearListings() {
     const container = document.getElementById("image-container");
     container.innerHTML = '';
 }
-
 
 function toggleButtons() {
     const showMoreBtn = document.getElementById("show-more");
@@ -194,7 +173,6 @@ function toggleButtons() {
     }
 }
 
-
 document.getElementById("show-more").addEventListener("click", () => {
     displayListings();
 });
@@ -202,7 +180,6 @@ document.getElementById("show-more").addEventListener("click", () => {
 document.getElementById("show-less").addEventListener("click", () => {
     hideListings();
 });
-
 
 function hideListings() {
     const container = document.getElementById("image-container");

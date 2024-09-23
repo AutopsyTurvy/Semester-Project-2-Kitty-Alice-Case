@@ -5,10 +5,8 @@
 
 // all-profiles.js
 
-
 import { ALL_PROFILES_URL } from './constants.js';
 import { load } from './login-and-register.js'; 
-
 
 const schoolDefaultImageUrl = "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400";
 
@@ -33,7 +31,6 @@ async function fetchAllProfiles() {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Profiles fetched successfully:', data);
             displayProfiles(data.data); 
         } else {
             const errorData = await response.json();
@@ -54,7 +51,6 @@ function displayProfiles(profiles) {
 
         const profileAvatar = document.createElement('img');
         
-       
         if (!profile.avatar?.url || profile.avatar.url === schoolDefaultImageUrl) {
             profileAvatar.src = '/images/default-avatar.jpg';
         } else {
