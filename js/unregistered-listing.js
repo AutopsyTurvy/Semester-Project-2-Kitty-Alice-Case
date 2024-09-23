@@ -27,7 +27,10 @@ function fetchListings() {
             displayUnregisteredListings();
 
             if (allListings.length > listingsPerPage) {
-                document.getElementById("show-more").style.display = "block";
+                const showMoreBtn = document.getElementById("show-more");
+                if (showMoreBtn) {
+                    showMoreBtn.style.display = "block";
+                }
             }
         })
         .catch(error => {
@@ -75,7 +78,8 @@ function displayUnregisteredListings() {
         viewButton.textContent = "View";
         viewButton.classList.add("unregistered-listing-button");
         viewButton.addEventListener("click", () => {
-            window.location.href = `/pages/unregistered-listing-details.html?id=${listing.id}`;
+            console.log(`Navigating to /pages/unregistered-listing-detail.html?id=${listing.id}`);
+            window.location.href = `/pages/unregistered-listing-detail.html?id=${listing.id}`;
         });
 
         buttonContainer.appendChild(viewButton);
@@ -98,25 +102,32 @@ function toggleButtons() {
     const showMoreBtn = document.getElementById("show-more");
     const showLessBtn = document.getElementById("show-less");
 
-    if (currentIndex < filteredListings.length) {
+    if (currentIndex < filteredListings.length && showMoreBtn) {
         showMoreBtn.style.display = "block";
-    } else {
+    } else if (showMoreBtn) {
         showMoreBtn.style.display = "none";
     }
 
-    if (currentIndex > listingsPerPage) {
+    if (currentIndex > listingsPerPage && showLessBtn) {
         showLessBtn.style.display = "block";
-    } else {
+    } else if (showLessBtn) {
         showLessBtn.style.display = "none";
     }
 }
 
-document.getElementById("show-more").addEventListener("click", () => {
-    displayUnregisteredListings(); 
-});
+document.addEventListener("DOMContentLoaded", () => {
+    fetchListings();
 
-document.getElementById("show-less").addEventListener("click", () => {
-    hideListings();
+    const showMoreBtn = document.getElementById("show-more");
+    const showLessBtn = document.getElementById("show-less");
+
+    if (showMoreBtn) {
+        showMoreBtn.addEventListener("click", displayUnregisteredListings);
+    }
+
+    if (showLessBtn) {
+        showLessBtn.addEventListener("click", hideListings);
+    }
 });
 
 function hideListings() {
@@ -131,5 +142,3 @@ function hideListings() {
     currentIndex = Math.max(currentIndex - listingsPerPage, listingsPerPage);
     toggleButtons();
 }
-
-document.addEventListener('DOMContentLoaded', fetchListings);
